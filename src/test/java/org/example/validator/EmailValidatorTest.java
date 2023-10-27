@@ -4,11 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static utils.TestUtils.EMAIL_IS_NOT_VALID;
-import static utils.TestUtils.EMAIL_IS_NULL;
 
 class EmailValidatorTest {
 
@@ -21,13 +18,11 @@ class EmailValidatorTest {
     @ParameterizedTest
     @ValueSource(strings = {"12345", "test", "test.com", "test@mail..com", "test@mail.", "test@mail"})
     void testIsValidEmail_whenProvideIncorrectEmail_thenThrow(String email) {
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> EmailValidator.isValidEmail(email));
-        assertEquals(EMAIL_IS_NOT_VALID, illegalArgumentException.getMessage());
+        assertFalse(EmailValidator.isValidEmail(email));
     }
 
     @Test
     void testIsValidEmail_whenProvideNull_thenThrow() {
-        NullPointerException nullPointerException = assertThrows(NullPointerException.class, () -> EmailValidator.isValidEmail(null));
-        assertEquals(EMAIL_IS_NULL, nullPointerException.getMessage());
+        assertFalse(EmailValidator.isValidEmail(null));
     }
 }
