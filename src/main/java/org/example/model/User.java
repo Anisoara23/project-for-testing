@@ -49,4 +49,12 @@ public class User {
     public List<Booking> getBookings() {
         return bookings;
     }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public int getId() {
+        return this.id;
+    }
 }
