@@ -32,7 +32,6 @@ public class Car {
             throw new IllegalArgumentException("Car %s with regNumber = %s is already booked.".formatted(brand.getName(), regNumber));
         }
         isBooked = true;
-//        booking.setCar(this);
     }
 
     public void cancelBooking() {
@@ -48,10 +47,6 @@ public class Car {
 
     public String getRegNumber() {
         return regNumber;
-    }
-
-    public Car(Brand brand) {
-        this.brand = brand;
     }
 
     public Brand getBrand() {

@@ -19,9 +19,6 @@ public class User {
 
     private final List<Booking> bookings = new ArrayList<>();
 
-    public User() {
-    }
-
     public User(int id, String firstName, String lastName, int age, String email, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;

@@ -19,12 +19,4 @@ public class Booking {
     public User getUser() {
         return user;
     }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public Car getCar() {
-        return car;
-    }
 }
