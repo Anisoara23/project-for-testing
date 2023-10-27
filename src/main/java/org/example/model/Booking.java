@@ -12,11 +12,22 @@ public class Booking {
 
     private Car car;
 
+    public Booking(int id, LocalDateTime bookedAt, User user, Car car) {
+        this.id = id;
+        this.bookedAt = bookedAt;
+        this.user = user;
+        this.car = car;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }
 
     public User getUser() {
         return user;
+    }
+
+    public int getId() {
+        return this.id;
     }
 }

@@ -5,7 +5,7 @@ import org.example.model.Car;
 import java.util.List;
 import java.util.Optional;
 
-interface CarDao {
+public interface CarDao {
 
     List<Car> getAllCars();
 

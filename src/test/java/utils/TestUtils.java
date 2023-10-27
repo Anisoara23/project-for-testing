@@ -6,10 +6,9 @@ import org.example.model.Car;
 import org.example.model.User;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class TestUtils {
-
-    public static final Booking BOOKING = new Booking();
 
     public static final User JOHN = new User(1, "John", "Smith", 23, "johny@mail.com", "0987654321");
 
@@ -24,6 +23,8 @@ public class TestUtils {
     public static final Car MERCEDES = new Car(1, "ABC123", new BigDecimal("350"), Brand.MERCEDES, true);
 
     public static final Car BMW = new Car(2, "DEF456", new BigDecimal("250"), Brand.BMW, false);
+
+    public static final Booking BOOKING = new Booking(1, LocalDateTime.now(), JOHN, MERCEDES);
 
     public static final String CAR_IS_ALREADY_BOOKED = "Car %s with regNumber = %s is already booked.";
 
