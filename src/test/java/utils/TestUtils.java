@@ -26,4 +26,8 @@ public class TestUtils {
     public static final String CAR_IS_ALREADY_BOOKED = "Car %s with regNumber = %s is already booked.";
 
     public static final String NO_BOOKING_FOR_CAR = "There is no booking for car %s with regNumber = %s";
+
+    public static final String EMAIL_IS_NOT_VALID = "Email is not valid!";
+
+    public static final String EMAIL_IS_NULL = "Email is null!";
 }
