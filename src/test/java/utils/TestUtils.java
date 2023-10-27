@@ -30,4 +30,8 @@ public class TestUtils {
     public static final String EMAIL_IS_NOT_VALID = "Email is not valid!";
 
     public static final String EMAIL_IS_NULL = "Email is null!";
+
+    public static final String INVALID_PHONE_NUMBER_FORMAT = "Invalid phone number format!";
+
+    public static final String PHONE_NUMBER_IS_NULL = "Phone number is null!";
 }
