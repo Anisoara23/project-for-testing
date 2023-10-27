@@ -1,5 +1,6 @@
 package utils;
 
+import org.example.dto.UserDto;
 import org.example.model.Booking;
 import org.example.model.Brand;
 import org.example.model.Car;
@@ -10,9 +11,11 @@ import java.time.LocalDateTime;
 
 public class TestUtils {
 
-    public static final User JOHN = new User(1, "John", "Smith", 23, "johny@mail.com", "0987654321");
+    public static final User JOHN = new User(1, "John", "Smith", 23, "johny@mail.com", "098-968-586");
 
-    public static final User MARIA = new User(2, "Maria", "Moon", 23, "marry@mail.com", "1234567890");
+    public static final UserDto JOHN_DTO = new UserDto("John", "Smith", 23, "johny@mail.com", "098-968-586");
+
+    public static final User MARIA = new User(2, "Maria", "Moon", 23, "marry@mail.com", "123456789");
 
     public static final String BOOKING_IS_ALREADY_USED_BY_THIS_USER = "Car is already booked by this user";
 
@@ -32,13 +35,21 @@ public class TestUtils {
 
     public static final String EMAIL_IS_NOT_VALID = "Email is not valid!";
 
-    public static final String EMAIL_IS_NULL = "Email is null!";
-
     public static final String INVALID_PHONE_NUMBER_FORMAT = "Invalid phone number format!";
-
-    public static final String PHONE_NUMBER_IS_NULL = "Phone number is null!";
 
     public static final String INVALID_REG_NUMBER = "Invalid reg number!";
 
     public static final String NULL_REG_NUMBER = "Null reg number!";
+
+    public static final String INVALID_DATA = "Invalid";
+
+    public static final String EMAIL_IS_TAKEN = "Email is already taken by other user!";
+
+    public static final String PHONE_NUMBER_IS_TAKEN = "Phone number is already taken by other user!";
+
+    public static final int AGE_LESS_THAN_ACCEPTED_USER_AGE = 17;
+
+    public static final String AGE_LESS_THAN_ACCEPTED = "Users with age less than 18 can not book cars!";
+
+    public static final String NO_USER_WITH_PROVIDED_DETAILS = "No user with provided details!";
 }

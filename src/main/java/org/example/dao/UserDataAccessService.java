@@ -25,6 +25,11 @@ public class UserDataAccessService implements UserDao{
     }
 
     @Override
+    public boolean existsUserByPhoneNumber(String phoneNumber) {
+        return userRepository.existsUserByPhoneNumber(phoneNumber);
+    }
+
+    @Override
     public User addUser(User user) {
         return userRepository.addUser(user);
     }

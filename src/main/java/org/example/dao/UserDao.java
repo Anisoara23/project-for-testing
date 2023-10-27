@@ -11,6 +11,8 @@ public interface UserDao {
 
     boolean existsUserByEmail(String email);
 
+    boolean existsUserByPhoneNumber(String phoneNumber);
+
     User addUser(User user);
 
     Optional<User> deleteUserById(int id);

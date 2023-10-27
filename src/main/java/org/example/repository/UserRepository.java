@@ -14,4 +14,6 @@ public interface UserRepository {
     User addUser(User user);
 
     Optional<User> deleteUserById(int id);
+
+    boolean existsUserByPhoneNumber(String phoneNumber);
 }
