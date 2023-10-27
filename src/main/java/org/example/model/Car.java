@@ -45,6 +45,10 @@ public class Car {
         return isBooked;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getRegNumber() {
         return regNumber;
     }

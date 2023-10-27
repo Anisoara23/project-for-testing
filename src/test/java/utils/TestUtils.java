@@ -21,7 +21,9 @@ public class TestUtils {
 
     public static final String NO_SUCH_BOOKING = "No such booking!";
 
-    public static final Car MERCEDES = new Car(1, "12345", new BigDecimal("250"), Brand.MERCEDES, true);
+    public static final Car MERCEDES = new Car(1, "ABC123", new BigDecimal("350"), Brand.MERCEDES, true);
+
+    public static final Car BMW = new Car(2, "DEF456", new BigDecimal("250"), Brand.BMW, false);
 
     public static final String CAR_IS_ALREADY_BOOKED = "Car %s with regNumber = %s is already booked.";
 
