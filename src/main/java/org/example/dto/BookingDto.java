@@ -1,12 +1,13 @@
-package org.example.model;
+package org.example.dto;
+
+import org.example.model.Car;
+import org.example.model.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Booking {
-
-    private int id;
+public class BookingDto {
 
     private LocalDateTime bookedAt;
 
@@ -18,31 +19,12 @@ public class Booking {
 
     private BigDecimal totalRentalPrice;
 
-    public Booking(int id, LocalDateTime bookedAt, LocalDateTime cancelAt, User user, Car car) {
-        this.id = id;
+    public BookingDto(LocalDateTime bookedAt, LocalDateTime cancelAt, User user, Car car, BigDecimal totalRentalPrice) {
         this.bookedAt = bookedAt;
         this.cancelAt = cancelAt;
         this.user = user;
         this.car = car;
-    }
-
-    public Booking(LocalDateTime bookedAt, LocalDateTime cancelAt, User user, Car car) {
-        this.bookedAt = bookedAt;
-        this.cancelAt = cancelAt;
-        this.user = user;
-        this.car = car;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public int getId() {
-        return this.id;
+        this.totalRentalPrice = totalRentalPrice;
     }
 
     public LocalDateTime getBookedAt() {
@@ -51,6 +33,10 @@ public class Booking {
 
     public LocalDateTime getCancelAt() {
         return cancelAt;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public Car getCar() {
@@ -65,8 +51,8 @@ public class Booking {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Booking booking = (Booking) o;
-        return Objects.equals(bookedAt, booking.bookedAt) && Objects.equals(cancelAt, booking.cancelAt) && Objects.equals(user, booking.user) && Objects.equals(car, booking.car);
+        BookingDto that = (BookingDto) o;
+        return Objects.equals(bookedAt, that.bookedAt) && Objects.equals(cancelAt, that.cancelAt) && Objects.equals(user, that.user) && Objects.equals(car, that.car);
     }
 
     @Override
