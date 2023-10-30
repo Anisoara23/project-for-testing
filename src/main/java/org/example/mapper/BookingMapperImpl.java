@@ -3,6 +3,8 @@ package org.example.mapper;
 import org.example.dto.BookingDto;
 import org.example.model.Booking;
 
+import java.math.BigDecimal;
+
 public class BookingMapperImpl implements BookingMapper{
 
     @Override
@@ -22,7 +24,7 @@ public class BookingMapperImpl implements BookingMapper{
                 booking.getCancelAt(),
                 booking.getUser(),
                 booking.getCar(),
-                booking.getTotalRentalPrice()
+                BigDecimal.valueOf(booking.getTotalRentalPrice())
         );
     }
 }

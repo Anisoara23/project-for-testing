@@ -2,6 +2,7 @@ package org.example.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Booking {
@@ -57,8 +58,11 @@ public class Booking {
         return car;
     }
 
-    public BigDecimal getTotalRentalPrice() {
-        return totalRentalPrice;
+    public double getTotalRentalPrice() {
+        double rentalPrice = car.getRentalPrice().doubleValue();
+        long numberOfRentDays = ChronoUnit.DAYS.between(bookedAt, cancelAt);
+
+        return rentalPrice * numberOfRentDays;
     }
 
     @Override
