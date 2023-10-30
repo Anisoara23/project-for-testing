@@ -35,6 +35,9 @@ import static utils.TestUtils.JOHN_DTO;
 import static utils.TestUtils.MARIA;
 import static utils.TestUtils.NO_USER_WITH_PROVIDED_DETAILS;
 import static utils.TestUtils.PHONE_NUMBER_IS_TAKEN;
+import static utils.TestUtils.VALID_AGE;
+import static utils.TestUtils.VALID_EMAIL;
+import static utils.TestUtils.VALID_PHONE_NUMBER;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
@@ -50,6 +53,9 @@ class UserServiceImplTest {
     @BeforeEach
     void setUp() {
         userService = new UserServiceImpl(userDao, userMapper);
+        JOHN_DTO.setEmail(VALID_EMAIL);
+        JOHN_DTO.setPhoneNumber(VALID_PHONE_NUMBER);
+        JOHN_DTO.setAge(VALID_AGE);
     }
 
     @Test
