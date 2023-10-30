@@ -4,9 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static utils.TestUtils.INVALID_REG_NUMBER;
-import static utils.TestUtils.NULL_REG_NUMBER;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RegNumberValidatorTest {
 
@@ -18,14 +17,12 @@ class RegNumberValidatorTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"ab12", "123abc", "ABC", "123"})
-    void testIsRegNumberValid_whenProvideIncorrectRegNumber_thenThrow(String regNumber) {
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> RegNumberValidator.isRegNumberValid(regNumber));
-        assertEquals(INVALID_REG_NUMBER, illegalArgumentException.getMessage());
+    void testIsRegNumberValid_whenProvideIncorrectRegNumber_thenReturnFalse(String regNumber) {
+        assertFalse(RegNumberValidator.isRegNumberValid(regNumber));
     }
 
     @Test
-    void testIsRegNumberValid_whenProvideNull_thenThrow() {
-        NullPointerException nullPointerException = assertThrows(NullPointerException.class, () -> RegNumberValidator.isRegNumberValid(null));
-        assertEquals(NULL_REG_NUMBER, nullPointerException.getMessage());
+    void testIsRegNumberValid_whenProvideNull_thenReturnFalse() {
+        assertFalse(RegNumberValidator.isRegNumberValid(null));
     }
 }
