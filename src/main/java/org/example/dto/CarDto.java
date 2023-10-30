@@ -3,6 +3,7 @@ package org.example.dto;
 import org.example.model.Brand;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class CarDto {
 
@@ -50,5 +51,18 @@ public class CarDto {
 
     public void setRentalPrice(BigDecimal rentalPrice) {
         this.rentalPrice = rentalPrice;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CarDto carDto = (CarDto) o;
+        return isElectric == carDto.isElectric && isBooked == carDto.isBooked && Objects.equals(regNumber, carDto.regNumber) && Objects.equals(rentalPrice, carDto.rentalPrice) && brand == carDto.brand;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(regNumber, rentalPrice, brand, isElectric, isBooked);
     }
 }

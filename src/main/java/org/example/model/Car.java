@@ -28,12 +28,13 @@ public class Car {
         this.isBooked = isBooked;
     }
 
-    public Car(int id, String regNumber, BigDecimal rentalPrice, Brand brand, boolean isElectric) {
+    public Car(int id, String regNumber, BigDecimal rentalPrice, Brand brand, boolean isElectric, boolean isBooked) {
         this.id = id;
         this.regNumber = regNumber;
         this.rentalPrice = rentalPrice;
         this.brand = brand;
         this.isElectric = isElectric;
+        this.isBooked = isBooked;
     }
 
     public void book() {
