@@ -27,18 +27,16 @@ public class Car {
         this.isElectric = isElectric;
     }
 
-    public void book(Booking booking) {
-        if (isBooked){
-            throw new IllegalArgumentException("Car %s with regNumber = %s is already booked.".formatted(brand.getName(), regNumber));
+    public void book() {
+        if (!isBooked) {
+            isBooked = true;
         }
-        isBooked = true;
     }
 
     public void cancelBooking() {
-        if (!isBooked){
-            throw new IllegalArgumentException("There is no booking for car %s with regNumber = %s".formatted(brand.getName(), regNumber));
+        if (isBooked) {
+            isBooked = false;
         }
-        isBooked = false;
     }
 
     public boolean isBooked() {
