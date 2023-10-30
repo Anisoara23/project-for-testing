@@ -5,15 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static utils.TestUtils.BOOKING;
-import static utils.TestUtils.BOOKING_IS_ALREADY_USED_BY_OTHER_USER;
-import static utils.TestUtils.BOOKING_IS_ALREADY_USED_BY_THIS_USER;
 import static utils.TestUtils.JOHN;
 import static utils.TestUtils.MARIA;
-import static utils.TestUtils.NO_SUCH_BOOKING;
 
 class UserTest {
 
@@ -36,19 +33,12 @@ class UserTest {
     }
 
     @Test
-    void testAddBooking_whenAddExistingBooking_thenThrow() {
+    void testAddBooking_whenAddExistingBooking_thenBookingIsNotAdded() {
+        JOHN.addBooking(BOOKING);
         JOHN.addBooking(BOOKING);
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> JOHN.addBooking(BOOKING));
-        assertEquals(BOOKING_IS_ALREADY_USED_BY_THIS_USER, illegalArgumentException.getMessage());
-    }
-
-    @Test
-    void testAddBooking_whenAddNonAvailableBooking_thenThrow() {
-        MARIA.addBooking(BOOKING);
-
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> JOHN.addBooking(BOOKING));
-        assertEquals(BOOKING_IS_ALREADY_USED_BY_OTHER_USER, illegalArgumentException.getMessage());
+        assertTrue(JOHN.getBookings().contains(BOOKING));
+        assertEquals(1, JOHN.getBookings().size());
     }
 
     @Test
@@ -62,19 +52,7 @@ class UserTest {
     }
 
     @Test
-    void testRemoveBooking_whenRemoveUnExistingBooking_thenThrow() {
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> JOHN.removeBooking(BOOKING));
-        assertEquals(NO_SUCH_BOOKING, illegalArgumentException.getMessage());
-    }
-
-    @Test
-    void testRemoveBooking_whenRemoveBookingForAUser_thenBookingIsAvailableForAnotherUser() {
-        JOHN.addBooking(BOOKING);
-        JOHN.removeBooking(BOOKING);
-
-        MARIA.addBooking(BOOKING);
-        List<Booking> bookings = MARIA.getBookings();
-
-        assertTrue(bookings.contains(BOOKING));
+    void testRemoveBooking_whenRemoveUnExistingBooking_thenDoNothing() {
+        assertDoesNotThrow(() -> JOHN.removeBooking(BOOKING));
     }
 }

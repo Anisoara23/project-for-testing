@@ -37,20 +37,14 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public void addBooking(Booking booking){
-        if (booking.getUser() != null && booking.getUser().equals(this)) {
-            throw new IllegalArgumentException("Car is already booked by this user");
-        } else if (booking.getUser() != null){
-            throw new IllegalArgumentException("Car is already booked by other user");
+    public void addBooking(Booking booking) {
+        if (!bookings.contains(booking)) {
+            bookings.add(booking);
         }
-        bookings.add(booking);
         booking.setUser(this);
     }
 
-    public void removeBooking(Booking booking){
-        if (!bookings.contains(booking)){
-            throw new IllegalArgumentException("No such booking!");
-        }
+    public void removeBooking(Booking booking) {
         bookings.remove(booking);
         booking.setUser(null);
     }
