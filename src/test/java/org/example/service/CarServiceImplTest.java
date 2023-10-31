@@ -4,10 +4,13 @@ import org.example.dao.CarDao;
 import org.example.dto.CarDto;
 import org.example.mapper.CarMapper;
 import org.example.model.Car;
-import org.junit.jupiter.api.BeforeEach;
+import org.example.validator.RegNumberValidator;
+import org.example.validator.RentalPriceValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -20,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -27,16 +31,12 @@ import static utils.TestUtils.BMW;
 import static utils.TestUtils.BMW_DTO;
 import static utils.TestUtils.INVALID_DATA;
 import static utils.TestUtils.INVALID_REG_NUMBER;
-import static utils.TestUtils.LESS_RENTAL_PRICE;
 import static utils.TestUtils.MERCEDES;
 import static utils.TestUtils.MERCEDES_DTO;
-import static utils.TestUtils.MORE_RENTAL_PRICE;
 import static utils.TestUtils.NO_CAR_WITH_REG_NUMBER;
 import static utils.TestUtils.REG_NUMBER_IS_ALREADY_USED;
 import static utils.TestUtils.SHOULD_BE_EQUAL_OR_LESS_THAN_500;
 import static utils.TestUtils.SHOULD_BE_EQUAL_OR_MORE_THAN_50;
-import static utils.TestUtils.VALID_REG_NUMBER;
-import static utils.TestUtils.VALID_RENTAL_PRICE;
 
 @ExtendWith(MockitoExtension.class)
 class CarServiceImplTest {
@@ -47,14 +47,8 @@ class CarServiceImplTest {
     @Mock
     private CarDao carDao;
 
-    private CarService carService;
-
-    @BeforeEach
-    void setUp() {
-        carService = new CarServiceImpl(carMapper, carDao);
-        MERCEDES_DTO.setRegNumber(VALID_REG_NUMBER);
-        MERCEDES_DTO.setRentalPrice(VALID_RENTAL_PRICE);
-    }
+    @InjectMocks
+    private CarServiceImpl carService;
 
     @Test
     void testGetAllCars_whenGetAllCars_thenReturnListOfCars() {
@@ -96,12 +90,14 @@ class CarServiceImplTest {
 
     @Test
     void testAddCar_whenAddCarWithInvalidRegNumber_thenThrow() {
-        MERCEDES_DTO.setRegNumber(INVALID_DATA);
+        try (MockedStatic<RegNumberValidator> regNumberValidatorMocked = mockStatic(RegNumberValidator.class)) {
+            regNumberValidatorMocked.when(() -> RegNumberValidator.isRegNumberValid(anyString())).thenReturn(false);
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> carService.addCar(MERCEDES_DTO));
+            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> carService.addCar(MERCEDES_DTO));
 
-        assertEquals(INVALID_REG_NUMBER, illegalArgumentException.getMessage());
-        verify(carDao, times(0)).addCar(any(Car.class));
+            assertEquals(INVALID_REG_NUMBER, illegalArgumentException.getMessage());
+            verify(carDao, times(0)).addCar(any(Car.class));
+        }
     }
 
     @Test
@@ -117,22 +113,28 @@ class CarServiceImplTest {
 
     @Test
     void testAddCar_whenAddCarWithLessRentalPrice_thenThrow() {
-        MERCEDES_DTO.setRentalPrice(LESS_RENTAL_PRICE);
+        try (MockedStatic<RentalPriceValidator> rentalPriceValidatorMocked = mockStatic(RentalPriceValidator.class)) {
+            rentalPriceValidatorMocked.when(() -> RentalPriceValidator.validateRentalPrice(any()))
+                    .thenThrow(new IllegalArgumentException(SHOULD_BE_EQUAL_OR_MORE_THAN_50));
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> carService.addCar(MERCEDES_DTO));
+            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> carService.addCar(MERCEDES_DTO));
 
-        assertEquals(SHOULD_BE_EQUAL_OR_MORE_THAN_50, illegalArgumentException.getMessage());
-        verify(carDao, times(0)).addCar(any(Car.class));
+            assertEquals(SHOULD_BE_EQUAL_OR_MORE_THAN_50, illegalArgumentException.getMessage());
+            verify(carDao, times(0)).addCar(any(Car.class));
+        }
     }
 
     @Test
     void testAddCar_whenAddCarWithMoreRentalPrice_thenThrow() {
-        MERCEDES_DTO.setRentalPrice(MORE_RENTAL_PRICE);
+        try (MockedStatic<RentalPriceValidator> rentalPriceValidatorMocked = mockStatic(RentalPriceValidator.class)) {
+            rentalPriceValidatorMocked.when(() -> RentalPriceValidator.validateRentalPrice(any()))
+                    .thenThrow(new IllegalArgumentException(SHOULD_BE_EQUAL_OR_LESS_THAN_500));
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> carService.addCar(MERCEDES_DTO));
+            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> carService.addCar(MERCEDES_DTO));
 
-        assertEquals(SHOULD_BE_EQUAL_OR_LESS_THAN_500, illegalArgumentException.getMessage());
-        verify(carDao, times(0)).addCar(any(Car.class));
+            assertEquals(SHOULD_BE_EQUAL_OR_LESS_THAN_500, illegalArgumentException.getMessage());
+            verify(carDao, times(0)).addCar(any(Car.class));
+        }
     }
 
     @Test

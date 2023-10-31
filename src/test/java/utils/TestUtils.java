@@ -25,9 +25,9 @@ public class TestUtils {
 
     public static final String NO_SUCH_BOOKING = "No such booking!";
 
-    public static final Car MERCEDES = new Car(1, "ABC123", new BigDecimal("100"), Brand.MERCEDES, true, true);
+    public static final Car MERCEDES = new Car(1, "ABC123", new BigDecimal("100"), Brand.MERCEDES, true, false);
 
-    public static final CarDto MERCEDES_DTO = new CarDto("ABC123", new BigDecimal("100"), Brand.MERCEDES, true, true);
+    public static final CarDto MERCEDES_DTO = new CarDto("ABC123", new BigDecimal("100"), Brand.MERCEDES, true, false);
 
     public static final Car BMW = new Car(2, "DEF456", new BigDecimal("250"), Brand.BMW, false, false);
 
@@ -35,7 +35,7 @@ public class TestUtils {
 
     public static final Booking BOOKING = new Booking(1, LocalDateTime.of(2023, 1, 23, 10, 10), LocalDateTime.of(2023, 1, 27, 10, 10), JOHN, MERCEDES);
 
-    public static final BookingDto BOOKING_DTO = new BookingDto( LocalDateTime.of(2023, 1, 23, 10, 10), LocalDateTime.of(2023, 1, 27, 10, 10),JOHN, MERCEDES, new BigDecimal("340"));
+    public static final BookingDto BOOKING_DTO = new BookingDto( LocalDateTime.of(2023, 1, 23, 10, 10), LocalDateTime.of(2023, 1, 27, 10, 10),JOHN, MERCEDES, new BigDecimal("400"));
 
     public static final String CAR_IS_ALREADY_BOOKED = "Car %s with regNumber = %s is already booked.";
 

@@ -9,6 +9,8 @@ import java.util.Objects;
 
 public class BookingDto {
 
+    private int id;
+
     private LocalDateTime bookedAt;
 
     private LocalDateTime cancelAt;
@@ -27,6 +29,13 @@ public class BookingDto {
         this.totalRentalPrice = totalRentalPrice;
     }
 
+    public BookingDto(LocalDateTime bookedAt, LocalDateTime cancelAt,User user, Car car) {
+        this.bookedAt = bookedAt;
+        this.user = user;
+        this.car = car;
+        this.cancelAt = cancelAt;
+    }
+
     public LocalDateTime getBookedAt() {
         return bookedAt;
     }
@@ -43,8 +52,12 @@ public class BookingDto {
         return car;
     }
 
-    public BigDecimal getTotalRentalPrice() {
-        return totalRentalPrice;
+    public void setBookedAt(LocalDateTime bookedAt) {
+        this.bookedAt = bookedAt;
+    }
+
+    public void setCancelAt(LocalDateTime cancelAt) {
+        this.cancelAt = cancelAt;
     }
 
     @Override

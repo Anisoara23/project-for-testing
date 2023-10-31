@@ -8,6 +8,8 @@ import org.example.validator.RegNumberValidator;
 
 import java.util.List;
 
+import static org.example.validator.RentalPriceValidator.validateRentalPrice;
+
 public class CarServiceImpl implements CarService {
 
     private final CarMapper carMapper;
@@ -65,15 +67,7 @@ public class CarServiceImpl implements CarService {
 
     private void validateCar(CarDto carDto) {
         validateRegNumber(carDto);
-        validateRentalPrice(carDto);
-    }
-
-    private static void validateRentalPrice(CarDto carDto) {
-        if (carDto.getRentalPrice().doubleValue() < 50) {
-            throw new IllegalArgumentException("Rental Price should be equal or more than 50");
-        } else if (carDto.getRentalPrice().doubleValue() > 500) {
-            throw new IllegalArgumentException("Rental Price should be equal or less than 500");
-        }
+        validateRentalPrice(carDto.getRentalPrice());
     }
 
     private void validateRegNumber(CarDto carDto) {

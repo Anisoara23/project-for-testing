@@ -1,6 +1,5 @@
 package org.example.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
@@ -16,8 +15,6 @@ public class Booking {
     private User user;
 
     private Car car;
-
-    private BigDecimal totalRentalPrice;
 
     public Booking(int id, LocalDateTime bookedAt, LocalDateTime cancelAt, User user, Car car) {
         this.id = id;
@@ -44,6 +41,10 @@ public class Booking {
 
     public int getId() {
         return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public LocalDateTime getBookedAt() {

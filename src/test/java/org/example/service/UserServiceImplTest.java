@@ -4,10 +4,14 @@ import org.example.dao.UserDao;
 import org.example.dto.UserDto;
 import org.example.mapper.UserMapper;
 import org.example.model.User;
-import org.junit.jupiter.api.BeforeEach;
+import org.example.validator.AgeValidator;
+import org.example.validator.EmailValidator;
+import org.example.validator.PhoneNumberValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -21,23 +25,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static utils.TestUtils.AGE_LESS_THAN_ACCEPTED;
-import static utils.TestUtils.AGE_LESS_THAN_ACCEPTED_USER_AGE;
 import static utils.TestUtils.EMAIL_IS_NOT_VALID;
 import static utils.TestUtils.EMAIL_IS_TAKEN;
-import static utils.TestUtils.INVALID_DATA;
 import static utils.TestUtils.INVALID_PHONE_NUMBER_FORMAT;
 import static utils.TestUtils.JOHN;
 import static utils.TestUtils.JOHN_DTO;
 import static utils.TestUtils.MARIA;
 import static utils.TestUtils.NO_USER_WITH_PROVIDED_DETAILS;
 import static utils.TestUtils.PHONE_NUMBER_IS_TAKEN;
-import static utils.TestUtils.VALID_AGE;
-import static utils.TestUtils.VALID_EMAIL;
-import static utils.TestUtils.VALID_PHONE_NUMBER;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
@@ -48,15 +48,8 @@ class UserServiceImplTest {
     @Mock
     private UserMapper userMapper;
 
-    private UserService userService;
-
-    @BeforeEach
-    void setUp() {
-        userService = new UserServiceImpl(userDao, userMapper);
-        JOHN_DTO.setEmail(VALID_EMAIL);
-        JOHN_DTO.setPhoneNumber(VALID_PHONE_NUMBER);
-        JOHN_DTO.setAge(VALID_AGE);
-    }
+    @InjectMocks
+    private UserServiceImpl userService;
 
     @Test
     void testGetAllUsers_whenGetAllUsers_thenReturnAllUsers() {
@@ -107,18 +100,22 @@ class UserServiceImplTest {
 
     @Test
     void testAddNewUser_whenAddUserWithInvalidEmail_thenThrow() {
-        JOHN_DTO.setEmail(INVALID_DATA);
+        try (MockedStatic<EmailValidator> emailValidatorMocked = mockStatic(EmailValidator.class)) {
+            emailValidatorMocked.when(() -> EmailValidator.isValidEmail(anyString())).thenReturn(false);
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> userService.addUser(JOHN_DTO));
+            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+                    () -> userService.addUser(JOHN_DTO));
 
-        assertEquals(EMAIL_IS_NOT_VALID, illegalArgumentException.getMessage());
+            assertEquals(EMAIL_IS_NOT_VALID, illegalArgumentException.getMessage());
+        }
     }
 
     @Test
     void testAddNewUser_whenAddUserWithAlreadyUsedEmail_thenThrow() {
         when(userDao.existsUserByEmail(anyString())).thenReturn(true);
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> userService.addUser(JOHN_DTO));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+                () -> userService.addUser(JOHN_DTO));
 
         assertEquals(EMAIL_IS_TAKEN, illegalArgumentException.getMessage());
         verify(userDao).existsUserByEmail(anyString());
@@ -126,17 +123,22 @@ class UserServiceImplTest {
 
     @Test
     void testAddNewUser_whenAddUserWithInvalidPhoneNumber_thenThrow() {
-        JOHN_DTO.setPhoneNumber(INVALID_DATA);
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> userService.addUser(JOHN_DTO));
+        try (MockedStatic<PhoneNumberValidator> phoneNumberValidatorMocked = mockStatic(PhoneNumberValidator.class)) {
+            phoneNumberValidatorMocked.when(() -> PhoneNumberValidator.isPhoneNumberValid(anyString())).thenReturn(false);
 
-        assertEquals(INVALID_PHONE_NUMBER_FORMAT, illegalArgumentException.getMessage());
+            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+                    () -> userService.addUser(JOHN_DTO));
+
+            assertEquals(INVALID_PHONE_NUMBER_FORMAT, illegalArgumentException.getMessage());
+        }
     }
 
     @Test
     void testAddNewUser_whenAddUserWithAlreadyUsedPhoneNumber_thenThrow() {
         when(userDao.existsUserByPhoneNumber(anyString())).thenReturn(true);
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> userService.addUser(JOHN_DTO));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+                () -> userService.addUser(JOHN_DTO));
 
         assertEquals(PHONE_NUMBER_IS_TAKEN, illegalArgumentException.getMessage());
         verify(userDao).existsUserByEmail(anyString());
@@ -144,10 +146,15 @@ class UserServiceImplTest {
 
     @Test
     void testAddNewUser_whenAddUserWithAgeLessThanEighteen_thenThrow() {
-        JOHN_DTO.setAge(AGE_LESS_THAN_ACCEPTED_USER_AGE);
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> userService.addUser(JOHN_DTO));
+        try (MockedStatic<AgeValidator> ageValidatorMocked = mockStatic(AgeValidator.class)) {
+            ageValidatorMocked.when(() -> AgeValidator.validateAge(anyInt(), anyInt()))
+                    .thenThrow(new IllegalArgumentException(AGE_LESS_THAN_ACCEPTED));
 
-        assertEquals(AGE_LESS_THAN_ACCEPTED, illegalArgumentException.getMessage());
+            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+                    () -> userService.addUser(JOHN_DTO));
+
+            assertEquals(AGE_LESS_THAN_ACCEPTED, illegalArgumentException.getMessage());
+        }
     }
 
     @Test
@@ -167,7 +174,8 @@ class UserServiceImplTest {
 
         when(userMapper.userDtoToUser(any(UserDto.class))).thenReturn(JOHN);
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> userService.deleteUser(JOHN_DTO));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+                () -> userService.deleteUser(JOHN_DTO));
         assertEquals(NO_USER_WITH_PROVIDED_DETAILS, illegalArgumentException.getMessage());
 
         verify(userDao, times(0)).deleteUserById(anyInt());

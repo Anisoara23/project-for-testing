@@ -2,9 +2,9 @@ package org.example.dao;
 
 import org.example.model.User;
 import org.example.repository.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -28,12 +28,8 @@ class UserDataAccessServiceTest {
     @Mock
     private UserRepository userRepository;
 
-    private UserDao userDao;
-
-    @BeforeEach
-    void setUp() {
-        userDao = new UserDataAccessService(userRepository);
-    }
+    @InjectMocks
+    private UserDataAccessService userDao;
 
     @Test
     void testGetAllUsers_whenGetAllUsers_thenReturnListOfUsers() {

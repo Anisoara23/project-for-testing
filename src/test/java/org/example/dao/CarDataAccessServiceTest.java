@@ -2,9 +2,9 @@ package org.example.dao;
 
 import org.example.model.Car;
 import org.example.repository.CarRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -25,15 +25,11 @@ import static utils.TestUtils.MERCEDES;
 @ExtendWith(MockitoExtension.class)
 class CarDataAccessServiceTest {
 
-    private CarDao carDao;
+    @InjectMocks
+    private CarDataAccessService carDao;
 
     @Mock
     private CarRepository carRepository;
-
-    @BeforeEach
-    void setUp() {
-        carDao = new CarDataAccessService(carRepository);
-    }
 
     @Test
     void testGetAllCars_whenGetAllCarsFromNonEmptyDatabase_thenReturnListOfCars() {

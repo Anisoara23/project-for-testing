@@ -2,16 +2,17 @@ package org.example.dao;
 
 import org.example.model.Booking;
 import org.example.repository.BookingRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
@@ -24,12 +25,8 @@ class BookingDataAccessServiceTest {
     @Mock
     private BookingRepository bookingRepository;
 
-    private BookingDao bookingDao;
-
-    @BeforeEach
-    void setUp() {
-        bookingDao = new BookingDataAccessService(bookingRepository);
-    }
+    @InjectMocks
+    private BookingDataAccessService bookingDao;
 
     @Test
     void testGetAllBookings_whenGetAllBookings_thenReturnListOfBookings() {
@@ -37,7 +34,7 @@ class BookingDataAccessServiceTest {
 
         List<Booking> bookings = bookingDao.getAllBookings();
 
-        assertTrue(bookings.containsAll(List.of(BOOKING)));
+        assertTrue(bookings.contains(BOOKING));
         verify(bookingRepository).getAllBookings();
     }
 

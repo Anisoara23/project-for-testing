@@ -10,6 +10,8 @@ import org.example.validator.PhoneNumberValidator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.example.validator.AgeValidator.validateAge;
+
 public class UserServiceImpl implements UserService {
 
     public static final int ACCEPTED_USER_AGE = 18;
@@ -48,7 +50,7 @@ public class UserServiceImpl implements UserService {
     private void validateUserDetails(UserDto userDto) {
         validateEmail(userDto);
         validatePhoneNumber(userDto);
-        validateAge(userDto);
+        validateAge(userDto.getAge(), ACCEPTED_USER_AGE);
     }
 
     @Override
@@ -60,12 +62,6 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new IllegalArgumentException("No user with provided details!"));
 
         userDao.deleteUserById(userToDelete.getId());
-    }
-
-    private static void validateAge(UserDto userDto) {
-        if (userDto.getAge() < ACCEPTED_USER_AGE) {
-            throw new IllegalArgumentException("Users with age less than 18 can not book cars!");
-        }
     }
 
     private void validatePhoneNumber(UserDto userDto) {
