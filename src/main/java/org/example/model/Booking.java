@@ -16,7 +16,13 @@ public class Booking {
 
     private Car car;
 
-    public Booking(int id, LocalDateTime bookedAt, LocalDateTime cancelAt, User user, Car car) {
+    public Booking(
+            int id,
+            LocalDateTime bookedAt,
+            LocalDateTime cancelAt,
+            User user,
+            Car car
+    ) {
         this.id = id;
         this.bookedAt = bookedAt;
         this.cancelAt = cancelAt;
@@ -24,7 +30,12 @@ public class Booking {
         this.car = car;
     }
 
-    public Booking(LocalDateTime bookedAt, LocalDateTime cancelAt, User user, Car car) {
+    public Booking(
+            LocalDateTime bookedAt,
+            LocalDateTime cancelAt,
+            User user,
+            Car car
+    ) {
         this.bookedAt = bookedAt;
         this.cancelAt = cancelAt;
         this.user = user;
@@ -61,7 +72,8 @@ public class Booking {
 
     public double getTotalRentalPrice() {
         double rentalPrice = car.getRentalPrice().doubleValue();
-        long numberOfRentDays = ChronoUnit.DAYS.between(bookedAt, cancelAt);
+        long numberOfRentDays = ChronoUnit.DAYS
+                .between(bookedAt, cancelAt);
 
         return rentalPrice * numberOfRentDays;
     }
@@ -71,7 +83,10 @@ public class Booking {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Booking booking = (Booking) o;
-        return Objects.equals(bookedAt, booking.bookedAt) && Objects.equals(cancelAt, booking.cancelAt) && Objects.equals(user, booking.user) && Objects.equals(car, booking.car);
+        return Objects.equals(bookedAt, booking.bookedAt) &&
+                Objects.equals(cancelAt, booking.cancelAt) &&
+                Objects.equals(user, booking.user) &&
+                Objects.equals(car, booking.car);
     }
 
     @Override

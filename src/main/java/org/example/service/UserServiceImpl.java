@@ -52,7 +52,9 @@ public class UserServiceImpl implements UserService {
         User userToDelete = userDao.getAllUsers().stream()
                 .filter(user -> user.equals(mappedUserToDelete))
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("No user with provided details!"));
+                .orElseThrow(
+                        () -> new IllegalArgumentException("No user with provided details!")
+                );
 
         userDao.deleteUserById(userToDelete.getId());
     }

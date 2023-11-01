@@ -14,13 +14,17 @@ class AgeValidatorTest {
 
     @Test
     void testValidateAge_whenAgeValid_thenDoNothing() {
-        assertDoesNotThrow(() -> AgeValidator.validateAge(PROVIDED_VALID_AGE, VALID_AGE));
+        assertDoesNotThrow(() -> AgeValidator
+                .validateAge(PROVIDED_VALID_AGE, VALID_AGE));
     }
 
     @Test
     void testValidateAge_whenAgeIsNotValid_thenThrow() {
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-                () -> AgeValidator.validateAge(PROVIDED_INVALID_AGE, VALID_AGE));
+        IllegalArgumentException illegalArgumentException = assertThrows(
+                IllegalArgumentException.class,
+                () -> AgeValidator.validateAge(PROVIDED_INVALID_AGE, VALID_AGE)
+        );
+
         assertEquals(AGE_LESS_THAN_ACCEPTED, illegalArgumentException.getMessage());
     }
 }

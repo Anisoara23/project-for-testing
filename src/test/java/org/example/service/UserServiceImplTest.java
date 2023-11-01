@@ -53,8 +53,10 @@ class UserServiceImplTest {
 
     @Test
     void testGetAllUsers_whenGetAllUsers_thenReturnAllUsers() {
-        when(userDao.getAllUsers()).thenReturn(List.of(JOHN));
-        when(userMapper.userToUserDto(any(User.class))).thenReturn(JOHN_DTO);
+        when(userDao.getAllUsers())
+                .thenReturn(List.of(JOHN));
+        when(userMapper.userToUserDto(any(User.class)))
+                .thenReturn(JOHN_DTO);
 
         List<UserDto> users = userService.getAllUsers();
 
@@ -65,7 +67,8 @@ class UserServiceImplTest {
 
     @Test
     void testExistsUserByEmail_whenUserByEmailExists_thenReturnTrue() {
-        when(userDao.existsUserByEmail(anyString())).thenReturn(true);
+        when(userDao.existsUserByEmail(anyString()))
+                .thenReturn(true);
 
         boolean existsUserByEmail = userService.existsUserByEmail(JOHN.getEmail());
 
@@ -76,7 +79,8 @@ class UserServiceImplTest {
 
     @Test
     void testExistsUserByEmail_whenNoUserWithProvidedEmail_thenReturnFalse() {
-        when(userDao.existsUserByEmail(anyString())).thenReturn(false);
+        when(userDao.existsUserByEmail(anyString()))
+                .thenReturn(false);
 
         boolean existsUserByEmail = userService.existsUserByEmail("unknown");
 
@@ -86,9 +90,12 @@ class UserServiceImplTest {
 
     @Test
     void testAddNewUser_whenAddValidUser_thenAddedUserIsReturned() {
-        when(userMapper.userDtoToUser(any(UserDto.class))).thenReturn(JOHN);
-        when(userDao.addUser(any(User.class))).thenReturn(JOHN);
-        when(userMapper.userToUserDto(any(User.class))).thenReturn(JOHN_DTO);
+        when(userMapper.userDtoToUser(any(UserDto.class)))
+                .thenReturn(JOHN);
+        when(userDao.addUser(any(User.class)))
+                .thenReturn(JOHN);
+        when(userMapper.userToUserDto(any(User.class)))
+                .thenReturn(JOHN_DTO);
 
         UserDto userDto = userService.addUser(JOHN_DTO);
 
@@ -100,11 +107,16 @@ class UserServiceImplTest {
 
     @Test
     void testAddNewUser_whenAddUserWithInvalidEmail_thenThrow() {
-        try (MockedStatic<EmailValidator> emailValidatorMocked = mockStatic(EmailValidator.class)) {
-            emailValidatorMocked.when(() -> EmailValidator.isValidEmail(anyString())).thenReturn(false);
+        try (MockedStatic<EmailValidator> emailValidatorMocked =
+                     mockStatic(EmailValidator.class)) {
+            emailValidatorMocked.when(() -> EmailValidator
+                    .isValidEmail(anyString()))
+                    .thenReturn(false);
 
-            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-                    () -> userService.addUser(JOHN_DTO));
+            IllegalArgumentException illegalArgumentException = assertThrows(
+                    IllegalArgumentException.class,
+                    () -> userService.addUser(JOHN_DTO)
+            );
 
             assertEquals(EMAIL_IS_NOT_VALID, illegalArgumentException.getMessage());
         }
@@ -112,10 +124,13 @@ class UserServiceImplTest {
 
     @Test
     void testAddNewUser_whenAddUserWithAlreadyUsedEmail_thenThrow() {
-        when(userDao.existsUserByEmail(anyString())).thenReturn(true);
+        when(userDao.existsUserByEmail(anyString()))
+                .thenReturn(true);
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-                () -> userService.addUser(JOHN_DTO));
+        IllegalArgumentException illegalArgumentException = assertThrows(
+                IllegalArgumentException.class,
+                () -> userService.addUser(JOHN_DTO)
+        );
 
         assertEquals(EMAIL_IS_TAKEN, illegalArgumentException.getMessage());
         verify(userDao).existsUserByEmail(anyString());
@@ -123,11 +138,16 @@ class UserServiceImplTest {
 
     @Test
     void testAddNewUser_whenAddUserWithInvalidPhoneNumber_thenThrow() {
-        try (MockedStatic<PhoneNumberValidator> phoneNumberValidatorMocked = mockStatic(PhoneNumberValidator.class)) {
-            phoneNumberValidatorMocked.when(() -> PhoneNumberValidator.isPhoneNumberValid(anyString())).thenReturn(false);
+        try (MockedStatic<PhoneNumberValidator> phoneNumberValidatorMocked =
+                     mockStatic(PhoneNumberValidator.class)) {
+            phoneNumberValidatorMocked.when(() -> PhoneNumberValidator
+                    .isPhoneNumberValid(anyString()))
+                    .thenReturn(false);
 
-            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-                    () -> userService.addUser(JOHN_DTO));
+            IllegalArgumentException illegalArgumentException = assertThrows(
+                    IllegalArgumentException.class,
+                    () -> userService.addUser(JOHN_DTO)
+            );
 
             assertEquals(INVALID_PHONE_NUMBER_FORMAT, illegalArgumentException.getMessage());
         }
@@ -135,10 +155,13 @@ class UserServiceImplTest {
 
     @Test
     void testAddNewUser_whenAddUserWithAlreadyUsedPhoneNumber_thenThrow() {
-        when(userDao.existsUserByPhoneNumber(anyString())).thenReturn(true);
+        when(userDao.existsUserByPhoneNumber(anyString()))
+                .thenReturn(true);
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-                () -> userService.addUser(JOHN_DTO));
+        IllegalArgumentException illegalArgumentException = assertThrows(
+                IllegalArgumentException.class,
+                () -> userService.addUser(JOHN_DTO)
+        );
 
         assertEquals(PHONE_NUMBER_IS_TAKEN, illegalArgumentException.getMessage());
         verify(userDao).existsUserByEmail(anyString());
@@ -146,12 +169,16 @@ class UserServiceImplTest {
 
     @Test
     void testAddNewUser_whenAddUserWithAgeLessThanEighteen_thenThrow() {
-        try (MockedStatic<AgeValidator> ageValidatorMocked = mockStatic(AgeValidator.class)) {
-            ageValidatorMocked.when(() -> AgeValidator.validateAge(anyInt(), anyInt()))
+        try (MockedStatic<AgeValidator> ageValidatorMocked =
+                     mockStatic(AgeValidator.class)) {
+            ageValidatorMocked.when(() -> AgeValidator
+                            .validateAge(anyInt(), anyInt()))
                     .thenThrow(new IllegalArgumentException(AGE_LESS_THAN_ACCEPTED));
 
-            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-                    () -> userService.addUser(JOHN_DTO));
+            IllegalArgumentException illegalArgumentException = assertThrows(
+                    IllegalArgumentException.class,
+                    () -> userService.addUser(JOHN_DTO)
+            );
 
             assertEquals(AGE_LESS_THAN_ACCEPTED, illegalArgumentException.getMessage());
         }
@@ -159,10 +186,12 @@ class UserServiceImplTest {
 
     @Test
     void testDeleteUserById_whenDeleteExistingUser_thenDoNothing() {
-        when(userDao.getAllUsers()).thenReturn(List.of(JOHN, MARIA));
-
-        when(userMapper.userDtoToUser(any(UserDto.class))).thenReturn(JOHN);
-        when(userDao.deleteUserById(anyInt())).thenReturn(Optional.of(JOHN));
+        when(userDao.getAllUsers())
+                .thenReturn(List.of(JOHN, MARIA));
+        when(userMapper.userDtoToUser(any(UserDto.class))).
+                thenReturn(JOHN);
+        when(userDao.deleteUserById(anyInt()))
+                .thenReturn(Optional.of(JOHN));
 
         assertDoesNotThrow(() -> userService.deleteUser(JOHN_DTO));
         verify(userDao).deleteUserById(anyInt());
@@ -170,14 +199,17 @@ class UserServiceImplTest {
 
     @Test
     void testDeleteUserById_whenDeleteUnknownUser_thenThrow() {
-        when(userDao.getAllUsers()).thenReturn(List.of(MARIA));
+        when(userDao.getAllUsers())
+                .thenReturn(List.of(MARIA));
+        when(userMapper.userDtoToUser(any(UserDto.class)))
+                .thenReturn(JOHN);
 
-        when(userMapper.userDtoToUser(any(UserDto.class))).thenReturn(JOHN);
+        IllegalArgumentException illegalArgumentException = assertThrows(
+                IllegalArgumentException.class,
+                () -> userService.deleteUser(JOHN_DTO)
+        );
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-                () -> userService.deleteUser(JOHN_DTO));
         assertEquals(NO_USER_WITH_PROVIDED_DETAILS, illegalArgumentException.getMessage());
-
         verify(userDao, times(0)).deleteUserById(anyInt());
     }
 }

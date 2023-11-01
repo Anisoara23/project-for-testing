@@ -52,8 +52,10 @@ class CarServiceImplTest {
 
     @Test
     void testGetAllCars_whenGetAllCars_thenReturnListOfCars() {
-        when(carDao.getAllCars()).thenReturn(List.of(MERCEDES));
-        when(carMapper.carToCarDto(any(Car.class))).thenReturn(MERCEDES_DTO);
+        when(carDao.getAllCars())
+                .thenReturn(List.of(MERCEDES));
+        when(carMapper.carToCarDto(any(Car.class)))
+                .thenReturn(MERCEDES_DTO);
 
         List<CarDto> cars = carService.getAllCars();
 
@@ -64,8 +66,10 @@ class CarServiceImplTest {
 
     @Test
     void testGetElectricCars_whenGetElectricCars_thenReturnListOfElectricCars() {
-        when(carDao.getElectricCars()).thenReturn(List.of(MERCEDES));
-        when(carMapper.carToCarDto(any(Car.class))).thenReturn(MERCEDES_DTO);
+        when(carDao.getElectricCars())
+                .thenReturn(List.of(MERCEDES));
+        when(carMapper.carToCarDto(any(Car.class)))
+                .thenReturn(MERCEDES_DTO);
 
         List<CarDto> electricCars = carService.getElectricCars();
 
@@ -76,9 +80,12 @@ class CarServiceImplTest {
 
     @Test
     void testAddCar_whenAddCarWithValidInformation_thenCarIsAddedAndReturned() {
-        when(carMapper.carDtoToCar(any(CarDto.class))).thenReturn(MERCEDES);
-        when(carDao.addCar(any(Car.class))).thenReturn(MERCEDES);
-        when(carMapper.carToCarDto(any(Car.class))).thenReturn(MERCEDES_DTO);
+        when(carMapper.carDtoToCar(any(CarDto.class)))
+                .thenReturn(MERCEDES);
+        when(carDao.addCar(any(Car.class)))
+                .thenReturn(MERCEDES);
+        when(carMapper.carToCarDto(any(Car.class)))
+                .thenReturn(MERCEDES_DTO);
 
         CarDto addedCar = carService.addCar(MERCEDES_DTO);
 
@@ -90,11 +97,16 @@ class CarServiceImplTest {
 
     @Test
     void testAddCar_whenAddCarWithInvalidRegNumber_thenThrow() {
-        try (MockedStatic<RegNumberValidator> regNumberValidatorMocked = mockStatic(RegNumberValidator.class)) {
-            regNumberValidatorMocked.when(() -> RegNumberValidator.isRegNumberValid(anyString())).thenReturn(false);
+        try (MockedStatic<RegNumberValidator> regNumberValidatorMocked =
+                     mockStatic(RegNumberValidator.class)) {
+            regNumberValidatorMocked.when(() -> RegNumberValidator
+                    .isRegNumberValid(anyString()))
+                    .thenReturn(false);
 
-            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-                    () -> carService.addCar(MERCEDES_DTO));
+            IllegalArgumentException illegalArgumentException = assertThrows(
+                    IllegalArgumentException.class,
+                    () -> carService.addCar(MERCEDES_DTO)
+            );
 
             assertEquals(INVALID_REG_NUMBER, illegalArgumentException.getMessage());
             verify(carDao, times(0)).addCar(any(Car.class));
@@ -103,10 +115,13 @@ class CarServiceImplTest {
 
     @Test
     void testAddCar_whenAddCarWithUsedRegNumber_thenThrow() {
-        when(carDao.getCarByRegNumber(anyString())).thenReturn(Optional.of(BMW));
+        when(carDao.getCarByRegNumber(anyString()))
+                .thenReturn(Optional.of(BMW));
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-                () -> carService.addCar(MERCEDES_DTO));
+        IllegalArgumentException illegalArgumentException = assertThrows(
+                IllegalArgumentException.class,
+                () -> carService.addCar(MERCEDES_DTO)
+        );
 
         assertEquals(REG_NUMBER_IS_ALREADY_USED, illegalArgumentException.getMessage());
         verify(carDao).getCarByRegNumber(anyString());
@@ -115,12 +130,16 @@ class CarServiceImplTest {
 
     @Test
     void testAddCar_whenAddCarWithLessRentalPrice_thenThrow() {
-        try (MockedStatic<RentalPriceValidator> rentalPriceValidatorMocked = mockStatic(RentalPriceValidator.class)) {
-            rentalPriceValidatorMocked.when(() -> RentalPriceValidator.validateRentalPrice(any()))
+        try (MockedStatic<RentalPriceValidator> rentalPriceValidatorMocked =
+                     mockStatic(RentalPriceValidator.class)) {
+            rentalPriceValidatorMocked.when(() -> RentalPriceValidator
+                            .validateRentalPrice(any()))
                     .thenThrow(new IllegalArgumentException(SHOULD_BE_EQUAL_OR_MORE_THAN_50));
 
-            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-                    () -> carService.addCar(MERCEDES_DTO));
+            IllegalArgumentException illegalArgumentException = assertThrows(
+                    IllegalArgumentException.class,
+                    () -> carService.addCar(MERCEDES_DTO)
+            );
 
             assertEquals(SHOULD_BE_EQUAL_OR_MORE_THAN_50, illegalArgumentException.getMessage());
             verify(carDao, times(0)).addCar(any(Car.class));
@@ -129,12 +148,16 @@ class CarServiceImplTest {
 
     @Test
     void testAddCar_whenAddCarWithMoreRentalPrice_thenThrow() {
-        try (MockedStatic<RentalPriceValidator> rentalPriceValidatorMocked = mockStatic(RentalPriceValidator.class)) {
-            rentalPriceValidatorMocked.when(() -> RentalPriceValidator.validateRentalPrice(any()))
+        try (MockedStatic<RentalPriceValidator> rentalPriceValidatorMocked =
+                     mockStatic(RentalPriceValidator.class)) {
+            rentalPriceValidatorMocked.when(() -> RentalPriceValidator
+                            .validateRentalPrice(any()))
                     .thenThrow(new IllegalArgumentException(SHOULD_BE_EQUAL_OR_LESS_THAN_500));
 
-            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-                    () -> carService.addCar(MERCEDES_DTO));
+            IllegalArgumentException illegalArgumentException = assertThrows(
+                    IllegalArgumentException.class,
+                    () -> carService.addCar(MERCEDES_DTO)
+            );
 
             assertEquals(SHOULD_BE_EQUAL_OR_LESS_THAN_500, illegalArgumentException.getMessage());
             verify(carDao, times(0)).addCar(any(Car.class));
@@ -143,8 +166,10 @@ class CarServiceImplTest {
 
     @Test
     void testGetCarByRegNumber_whenGetCarByValidRegNumber_thenReturnTheCar() {
-        when(carDao.getCarByRegNumber(anyString())).thenReturn(Optional.of(MERCEDES));
-        when(carMapper.carToCarDto(any(Car.class))).thenReturn(MERCEDES_DTO);
+        when(carDao.getCarByRegNumber(anyString()))
+                .thenReturn(Optional.of(MERCEDES));
+        when(carMapper.carToCarDto(any(Car.class)))
+                .thenReturn(MERCEDES_DTO);
 
         CarDto carByRegNumber = carService.getCarByRegNumber(MERCEDES_DTO.getRegNumber());
 
@@ -154,19 +179,25 @@ class CarServiceImplTest {
 
     @Test
     void testGetCarByRegNumber_whenGetCarByInvalidRegNumber_thenThrow() {
-        when(carDao.getCarByRegNumber(anyString())).thenReturn(Optional.empty());
+        when(carDao.getCarByRegNumber(anyString()))
+                .thenReturn(Optional.empty());
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-                () -> carService.getCarByRegNumber(INVALID_DATA));
+        IllegalArgumentException illegalArgumentException = assertThrows(
+                IllegalArgumentException.class,
+                () -> carService.getCarByRegNumber(INVALID_DATA)
+        );
 
         assertEquals(NO_CAR_WITH_REG_NUMBER, illegalArgumentException.getMessage());
     }
 
     @Test
     void testDeleteCar_whenDeleteExistingCar_thenDoNotThrow() {
-        when(carDao.getAllCars()).thenReturn(List.of(MERCEDES));
-        when(carMapper.carDtoToCar(any(CarDto.class))).thenReturn(MERCEDES);
-        when(carDao.deleteCarById(anyInt())).thenReturn(Optional.of(MERCEDES));
+        when(carDao.getAllCars())
+                .thenReturn(List.of(MERCEDES));
+        when(carMapper.carDtoToCar(any(CarDto.class)))
+                .thenReturn(MERCEDES);
+        when(carDao.deleteCarById(anyInt()))
+                .thenReturn(Optional.of(MERCEDES));
 
         assertDoesNotThrow(() -> carService.deleteCar(MERCEDES_DTO));
         verify(carDao).getAllCars();
@@ -176,11 +207,15 @@ class CarServiceImplTest {
 
     @Test
     void testDeleteCar_whenDeleteNonExistingCar_thenThrow() {
-        when(carDao.getAllCars()).thenReturn(List.of(MERCEDES));
-        when(carMapper.carDtoToCar(any(CarDto.class))).thenReturn(BMW);
+        when(carDao.getAllCars())
+                .thenReturn(List.of(MERCEDES));
+        when(carMapper.carDtoToCar(any(CarDto.class)))
+                .thenReturn(BMW);
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-                () -> carService.deleteCar(BMW_DTO));
+        IllegalArgumentException illegalArgumentException = assertThrows(
+                IllegalArgumentException.class,
+                () -> carService.deleteCar(BMW_DTO)
+        );
 
         assertEquals("No such car", illegalArgumentException.getMessage());
         verify(carDao).getAllCars();

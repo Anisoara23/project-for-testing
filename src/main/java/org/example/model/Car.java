@@ -15,14 +15,24 @@ public class Car {
 
     private boolean isElectric;
 
-    public Car(String regNumber, BigDecimal rentalPrice, Brand brand, boolean isElectric) {
+    public Car(
+            String regNumber,
+            BigDecimal rentalPrice,
+            Brand brand,
+            boolean isElectric
+    ) {
         this.regNumber = regNumber;
         this.rentalPrice = rentalPrice;
         this.brand = brand;
         this.isElectric = isElectric;
     }
 
-    public Car(int id, String regNumber, BigDecimal rentalPrice, Brand brand, boolean isElectric) {
+    public Car(
+            int id, String regNumber,
+            BigDecimal rentalPrice,
+            Brand brand,
+            boolean isElectric
+    ) {
         this.id = id;
         this.regNumber = regNumber;
         this.rentalPrice = rentalPrice;
@@ -55,7 +65,10 @@ public class Car {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return isElectric == car.isElectric && Objects.equals(regNumber, car.regNumber) && Objects.equals(rentalPrice, car.rentalPrice) && brand == car.brand;
+        return isElectric == car.isElectric &&
+                Objects.equals(regNumber, car.regNumber) &&
+                Objects.equals(rentalPrice, car.rentalPrice) &&
+                brand == car.brand;
     }
 
     @Override

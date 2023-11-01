@@ -33,7 +33,8 @@ class UserDataAccessServiceTest {
 
     @Test
     void testGetAllUsers_whenGetAllUsers_thenReturnListOfUsers() {
-        when(userRepository.getAllUsers()).thenReturn(List.of(JOHN, MARIA));
+        when(userRepository.getAllUsers())
+                .thenReturn(List.of(JOHN, MARIA));
 
         List<User> users = userDao.getAllUsers();
 
@@ -43,7 +44,8 @@ class UserDataAccessServiceTest {
 
     @Test
     void testGetAllUsers_whenGetAllUsersFromEmptyRepo_thenReturnEmptyList() {
-        when(userRepository.getAllUsers()).thenReturn(List.of());
+        when(userRepository.getAllUsers())
+                .thenReturn(List.of());
 
         List<User> users = userDao.getAllUsers();
 
@@ -53,7 +55,8 @@ class UserDataAccessServiceTest {
 
     @Test
     void testExistsUserByEmail_whenUserByEmailExists_thenReturnTrue() {
-        when(userRepository.existsUserByEmail(anyString())).thenReturn(true);
+        when(userRepository.existsUserByEmail(anyString()))
+                .thenReturn(true);
 
         boolean existsUserByEmail = userDao.existsUserByEmail(JOHN.getEmail());
 
@@ -64,7 +67,8 @@ class UserDataAccessServiceTest {
 
     @Test
     void testExistsUserByEmail_whenNoUserWithProvidedEmail_thenReturnFalse() {
-        when(userRepository.existsUserByEmail(anyString())).thenReturn(false);
+        when(userRepository.existsUserByEmail(anyString()))
+                .thenReturn(false);
 
         boolean existsUserByEmail = userDao.existsUserByEmail("unknown");
 
@@ -75,7 +79,8 @@ class UserDataAccessServiceTest {
 
     @Test
     void testExistsUserByPhoneNumber_whenUserWithProvidedPhoneExists_thenReturnTrue() {
-        when(userRepository.existsUserByPhoneNumber(anyString())).thenReturn(true);
+        when(userRepository.existsUserByPhoneNumber(anyString()))
+                .thenReturn(true);
 
         boolean existsUserByPhoneNumber = userDao.existsUserByPhoneNumber(JOHN.getPhoneNumber());
 
@@ -85,7 +90,8 @@ class UserDataAccessServiceTest {
 
     @Test
     void testExistsUserByPhoneNumber_whenNoUserWithProvidedPhone_thenReturnFalse() {
-        when(userRepository.existsUserByPhoneNumber(anyString())).thenReturn(false);
+        when(userRepository.existsUserByPhoneNumber(anyString()))
+                .thenReturn(false);
 
         boolean existsUserByPhoneNumber = userDao.existsUserByPhoneNumber(JOHN.getPhoneNumber());
 
@@ -95,7 +101,8 @@ class UserDataAccessServiceTest {
 
     @Test
     void testAddUser_whenAddNewUser_thenAddedUserIsReturned() {
-        when(userRepository.addUser(any(User.class))).thenReturn(JOHN);
+        when(userRepository.addUser(any(User.class)))
+                .thenReturn(JOHN);
 
         User user = userDao.addUser(JOHN);
 
@@ -105,7 +112,8 @@ class UserDataAccessServiceTest {
 
     @Test
     void testDeleteUserById_whenDeleteExistingUser_thenReturnDeletedUser() {
-        when(userRepository.deleteUserById(anyInt())).thenReturn(Optional.of(JOHN));
+        when(userRepository.deleteUserById(anyInt()))
+                .thenReturn(Optional.of(JOHN));
 
         Optional<User> user = userDao.deleteUserById(JOHN.getId());
 
@@ -115,7 +123,8 @@ class UserDataAccessServiceTest {
 
     @Test
     void testDeleteUserById_whenDeleteNonExistingUser_thenReturnNull() {
-        when(userRepository.deleteUserById(anyInt())).thenReturn(Optional.empty());
+        when(userRepository.deleteUserById(anyInt()))
+                .thenReturn(Optional.empty());
 
         Optional<User> user = userDao.deleteUserById(JOHN.getId());
 

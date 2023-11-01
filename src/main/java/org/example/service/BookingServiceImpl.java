@@ -34,7 +34,10 @@ public class BookingServiceImpl implements BookingService {
         Optional<Booking> booking = bookingDao.getBookingById(id);
 
         return bookingMapper.bookingToBookingDto(
-                booking.orElseThrow(() -> new IllegalArgumentException("No booking with id = %s".formatted(id)))
+                booking.orElseThrow(
+                        () -> new IllegalArgumentException("No booking with id = %s".formatted(id)
+                        )
+                )
         );
     }
 

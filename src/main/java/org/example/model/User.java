@@ -20,7 +20,13 @@ public class User {
 
     private final List<Booking> bookings = new ArrayList<>();
 
-    public User(String firstName, String lastName, Integer age, String email, String phoneNumber) {
+    public User(
+            String firstName,
+            String lastName,
+            Integer age,
+            String email,
+            String phoneNumber
+    ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -28,7 +34,14 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public User(int id, String firstName, String lastName, int age, String email, String phoneNumber) {
+    public User(
+            int id,
+            String firstName,
+            String lastName,
+            int age,
+            String email,
+            String phoneNumber
+    ) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -88,7 +101,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return age == user.age && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(phoneNumber, user.phoneNumber);
+        return age == user.age &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(phoneNumber, user.phoneNumber);
     }
 
     @Override

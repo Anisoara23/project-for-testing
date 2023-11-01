@@ -18,7 +18,13 @@ public class BookingDto {
 
     private BigDecimal totalRentalPrice;
 
-    public BookingDto(LocalDateTime bookedAt, LocalDateTime cancelAt, UserDto userDto, CarDto carDto, BigDecimal totalRentalPrice) {
+    public BookingDto(
+            LocalDateTime bookedAt,
+            LocalDateTime cancelAt,
+            UserDto userDto,
+            CarDto carDto,
+            BigDecimal totalRentalPrice
+    ) {
         this.bookedAt = bookedAt;
         this.cancelAt = cancelAt;
         this.userDto = userDto;
@@ -26,7 +32,12 @@ public class BookingDto {
         this.totalRentalPrice = totalRentalPrice;
     }
 
-    public BookingDto(LocalDateTime bookedAt, LocalDateTime cancelAt, UserDto userDto, CarDto carDto) {
+    public BookingDto(
+            LocalDateTime bookedAt,
+            LocalDateTime cancelAt,
+            UserDto userDto,
+            CarDto carDto
+    ) {
         this.bookedAt = bookedAt;
         this.userDto = userDto;
         this.carDto = carDto;
@@ -54,23 +65,14 @@ public class BookingDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookingDto that = (BookingDto) o;
-        return Objects.equals(bookedAt, that.bookedAt) && Objects.equals(cancelAt, that.cancelAt) && Objects.equals(userDto, that.userDto) && Objects.equals(carDto, that.carDto);
+        return Objects.equals(bookedAt, that.bookedAt) &&
+                Objects.equals(cancelAt, that.cancelAt) &&
+                Objects.equals(userDto, that.userDto) &&
+                Objects.equals(carDto, that.carDto);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(bookedAt, cancelAt, userDto, carDto);
-    }
-
-    @Override
-    public String toString() {
-        return "BookingDto{" +
-                "id=" + id +
-                ", bookedAt=" + bookedAt +
-                ", cancelAt=" + cancelAt +
-                ", userDto=" + userDto +
-                ", carDto=" + carDto +
-                ", totalRentalPrice=" + totalRentalPrice +
-                '}';
     }
 }

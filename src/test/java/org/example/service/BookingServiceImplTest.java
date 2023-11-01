@@ -32,7 +32,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import static utils.TestUtils.NO_BOOKING;
-import static utils.TestUtils.UNNAVAILABLE_CAR;
+import static utils.TestUtils.UNAVAILABLE_CAR;
 
 @ExtendWith(MockitoExtension.class)
 class BookingServiceImplTest {
@@ -93,14 +93,16 @@ class BookingServiceImplTest {
                 Brand.MERCEDES,
                 true);
 
-        bookingDto = new BookingDto(bookedAt, cancelAt, userDto, carDto);
         booking = new Booking(1, bookedAt, cancelAt, user, car);
+        bookingDto = new BookingDto(bookedAt, cancelAt, userDto, carDto);
     }
 
     @Test
     void testGetAllBookings_whenGetAllBookings_thenReturnListOfBookings() {
-        when(bookingDao.getAllBookings()).thenReturn(List.of(booking));
-        when(bookingMapper.bookingToBookingDto(any(Booking.class))).thenReturn(bookingDto);
+        when(bookingDao.getAllBookings())
+                .thenReturn(List.of(booking));
+        when(bookingMapper.bookingToBookingDto(any(Booking.class)))
+                .thenReturn(bookingDto);
 
         List<BookingDto> bookings = bookingService.getAllBookings();
 
@@ -111,8 +113,10 @@ class BookingServiceImplTest {
 
     @Test
     void testGetBookingById_whenGetBookingByValidId_thenReturnBooking() {
-        when(bookingDao.getBookingById(anyInt())).thenReturn(Optional.of(booking));
-        when(bookingMapper.bookingToBookingDto(any(Booking.class))).thenReturn(bookingDto);
+        when(bookingDao.getBookingById(anyInt()))
+                .thenReturn(Optional.of(booking));
+        when(bookingMapper.bookingToBookingDto(any(Booking.class)))
+                .thenReturn(bookingDto);
 
         BookingDto bookingById = bookingService.getBookingById(booking.getId());
 
@@ -123,17 +127,23 @@ class BookingServiceImplTest {
 
     @Test
     void testGetBookingById_whenGetBookingByInvalidId_thenThrow() {
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-                () -> bookingService.getBookingById(booking.getId()));
+        IllegalArgumentException illegalArgumentException = assertThrows(
+                IllegalArgumentException.class,
+                () -> bookingService.getBookingById(booking.getId())
+        );
 
-        assertEquals(NO_BOOKING.formatted(booking.getId()), illegalArgumentException.getMessage());
+        assertEquals(
+                NO_BOOKING.formatted(booking.getId()),
+                illegalArgumentException.getMessage()
+        );
         verify(bookingDao).getBookingById(anyInt());
         verifyNoInteractions(bookingMapper);
     }
 
     @Test
     void testAddBooking_whenAddValidBooking_thenBookingIsAdded_andAllInfoIsValid() {
-        when(bookingMapper.bookingDtoToBooking(any(BookingDto.class))).thenReturn(booking);
+        when(bookingMapper.bookingDtoToBooking(any(BookingDto.class)))
+                .thenReturn(booking);
 
         bookingService.addBooking(bookingDto);
 
@@ -145,13 +155,17 @@ class BookingServiceImplTest {
 
     @Test
     void testAddBooking_whenAddBookingForPeriodWhenCarIsAlreadyBooked_thenThrow() {
-        when(bookingDao.getAllBookings()).thenReturn(List.of(booking));
-        when(bookingMapper.bookingToBookingDto(any())).thenReturn(bookingDto);
+        when(bookingDao.getAllBookings())
+                .thenReturn(List.of(booking));
+        when(bookingMapper.bookingToBookingDto(any()))
+                .thenReturn(bookingDto);
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-                () -> bookingService.addBooking(bookingDto));
+        IllegalArgumentException illegalArgumentException = assertThrows(
+                IllegalArgumentException.class,
+                () -> bookingService.addBooking(bookingDto)
+        );
 
-        assertEquals(UNNAVAILABLE_CAR.formatted(
+        assertEquals(UNAVAILABLE_CAR.formatted(
                 car.getBrand(),
                 car.getRegNumber(),
                 bookedAt.toLocalDate(),
@@ -160,8 +174,10 @@ class BookingServiceImplTest {
 
     @Test
     void testAddBooking_whenAddBookingForUser_thenUserShouldHaveTheBookingInItsListOfBookings() {
-        when(bookingMapper.bookingDtoToBooking(any(BookingDto.class))).thenReturn(booking);
-        when(bookingDao.addBooking(any(Booking.class))).thenReturn(booking);
+        when(bookingMapper.bookingDtoToBooking(any(BookingDto.class)))
+                .thenReturn(booking);
+        when(bookingDao.addBooking(any(Booking.class)))
+                .thenReturn(booking);
 
         bookingService.addBooking(bookingDto);
         verify(bookingDao).addBooking(bookingArgumentCaptor.capture());

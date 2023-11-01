@@ -10,13 +10,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class RegNumberValidatorTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {"ABC123", "abc123"})
+    @ValueSource(strings = {
+            "ABC123",
+            "abc123"
+    })
     void testIsRegNumberValid_whenProvideCorrectRegNumber_thenReturnTrue(String regNumber) {
         assertTrue(RegNumberValidator.isRegNumberValid(regNumber));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"ab12", "123abc", "ABC", "123"})
+    @ValueSource(strings = {
+            "ab12",
+            "123abc",
+            "ABC",
+            "123"
+    })
     void testIsRegNumberValid_whenProvideIncorrectRegNumber_thenReturnFalse(String regNumber) {
         assertFalse(RegNumberValidator.isRegNumberValid(regNumber));
     }

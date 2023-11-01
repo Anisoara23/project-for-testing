@@ -15,7 +15,12 @@ public class CarDto {
 
     private boolean isElectric;
 
-    public CarDto(String regNumber, BigDecimal rentalPrice, Brand brand, boolean isElectric) {
+    public CarDto(
+            String regNumber,
+            BigDecimal rentalPrice,
+            Brand brand,
+            boolean isElectric
+    ) {
         this.regNumber = regNumber;
         this.rentalPrice = rentalPrice;
         this.brand = brand;
@@ -43,7 +48,10 @@ public class CarDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CarDto carDto = (CarDto) o;
-        return isElectric == carDto.isElectric && Objects.equals(regNumber, carDto.regNumber) && Objects.equals(rentalPrice, carDto.rentalPrice) && brand == carDto.brand;
+        return isElectric == carDto.isElectric &&
+                Objects.equals(regNumber, carDto.regNumber) &&
+                Objects.equals(rentalPrice, carDto.rentalPrice) &&
+                brand == carDto.brand;
     }
 
     @Override

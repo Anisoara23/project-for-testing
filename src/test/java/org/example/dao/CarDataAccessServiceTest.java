@@ -34,7 +34,8 @@ class CarDataAccessServiceTest {
     @Test
     void testGetAllCars_whenGetAllCarsFromNonEmptyDatabase_thenReturnListOfCars() {
         List<Car> cars = List.of(MERCEDES, BMW);
-        when(carRepository.getAllCars()).thenReturn(cars);
+        when(carRepository.getAllCars())
+                .thenReturn(cars);
 
         List<Car> carList = carDao.getAllCars();
 
@@ -45,7 +46,8 @@ class CarDataAccessServiceTest {
 
     @Test
     void testGetAllCars_whenGetAllCarsFromEmptyDatabase_thenReturnEmptyList() {
-        when(carRepository.getAllCars()).thenReturn(List.of());
+        when(carRepository.getAllCars())
+                .thenReturn(List.of());
 
         List<Car> cars = carDao.getAllCars();
 
@@ -55,7 +57,8 @@ class CarDataAccessServiceTest {
 
     @Test
     void testGetElectricCars_whenGetElectricCars_thenReturnListOfElectricCars() {
-        when(carRepository.getElectricCars()).thenReturn(List.of(MERCEDES));
+        when(carRepository.getElectricCars())
+                .thenReturn(List.of(MERCEDES));
 
         List<Car> electricCars = carDao.getElectricCars();
         assertTrue(electricCars.contains(MERCEDES));
@@ -64,7 +67,8 @@ class CarDataAccessServiceTest {
 
     @Test
     void testAddCar_whenAddNewCar_thenAddedCarIsReturned() {
-        when(carRepository.addCar(any(Car.class))).thenReturn(MERCEDES);
+        when(carRepository.addCar(any(Car.class)))
+                .thenReturn(MERCEDES);
 
         Car car = carDao.addCar(MERCEDES);
         assertEquals(MERCEDES, car);
@@ -73,7 +77,8 @@ class CarDataAccessServiceTest {
 
     @Test
     void testGetCarByRegNumber_whenGetCarByRegNumber_thenReturnTheCar() {
-        when(carRepository.getCarByRegNumber(anyString())).thenReturn(Optional.of(MERCEDES));
+        when(carRepository.getCarByRegNumber(anyString()))
+                .thenReturn(Optional.of(MERCEDES));
 
         Optional<Car> car = carDao.getCarByRegNumber(MERCEDES.getRegNumber());
 
@@ -83,7 +88,8 @@ class CarDataAccessServiceTest {
 
     @Test
     void testGetCarByRegNumber_whenGetCarByUnknownRegNumber_thenReturnNull() {
-        when(carRepository.getCarByRegNumber(anyString())).thenReturn(Optional.empty());
+        when(carRepository.getCarByRegNumber(anyString()))
+                .thenReturn(Optional.empty());
 
         Optional<Car> car = carDao.getCarByRegNumber("test");
 
@@ -93,7 +99,8 @@ class CarDataAccessServiceTest {
 
     @Test
     void testDeleteCarById_whenDeleteExistingCar_thenReturnDeletedCar() {
-        when(carRepository.deleteCarById(anyInt())).thenReturn(Optional.of(MERCEDES));
+        when(carRepository.deleteCarById(anyInt()))
+                .thenReturn(Optional.of(MERCEDES));
 
         Optional<Car> car = carDao.deleteCarById(MERCEDES.getId());
 
@@ -103,7 +110,8 @@ class CarDataAccessServiceTest {
 
     @Test
     void testDeleteCarById_whenDeleteByNonExistingId_thenReturnNull() {
-        when(carRepository.deleteCarById(anyInt())).thenReturn(Optional.empty());
+        when(carRepository.deleteCarById(anyInt()))
+                .thenReturn(Optional.empty());
 
         Optional<Car> car = carDao.deleteCarById(100);
 

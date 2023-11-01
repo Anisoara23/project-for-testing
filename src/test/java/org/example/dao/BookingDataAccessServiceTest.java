@@ -30,7 +30,8 @@ class BookingDataAccessServiceTest {
 
     @Test
     void testGetAllBookings_whenGetAllBookings_thenReturnListOfBookings() {
-        when(bookingRepository.getAllBookings()).thenReturn(List.of(BOOKING));
+        when(bookingRepository.getAllBookings())
+                .thenReturn(List.of(BOOKING));
 
         List<Booking> bookings = bookingDao.getAllBookings();
 
@@ -40,7 +41,8 @@ class BookingDataAccessServiceTest {
 
     @Test
     void testGetAllBookings_whenGetAllBookingsFromEmptyRepo_thenReturnEmptyList() {
-        when(bookingRepository.getAllBookings()).thenReturn(List.of());
+        when(bookingRepository.getAllBookings())
+                .thenReturn(List.of());
 
         List<Booking> bookings = bookingDao.getAllBookings();
 
@@ -50,7 +52,8 @@ class BookingDataAccessServiceTest {
 
     @Test
     void testGetBookingById_whenGetBookingById_thenReturnBooking() {
-        when(bookingRepository.getBookingById(anyInt())).thenReturn(Optional.of(BOOKING));
+        when(bookingRepository.getBookingById(anyInt()))
+                .thenReturn(Optional.of(BOOKING));
 
         Optional<Booking> booking = bookingDao.getBookingById(BOOKING.getId());
 
@@ -60,7 +63,8 @@ class BookingDataAccessServiceTest {
 
     @Test
     void testGetBookingById_whenGetBookingByUnknownId_thenReturnNull() {
-        when(bookingRepository.getBookingById(anyInt())).thenReturn(Optional.empty());
+        when(bookingRepository.getBookingById(anyInt()))
+                .thenReturn(Optional.empty());
 
         Optional<Booking> booking = bookingDao.getBookingById(BOOKING.getId());
 
@@ -70,7 +74,8 @@ class BookingDataAccessServiceTest {
 
     @Test
     void testAddBooking_whenAddNewBooking_thenReturnAddedBooking() {
-        when(bookingRepository.addBooking(any(Booking.class))).thenReturn(BOOKING);
+        when(bookingRepository.addBooking(any(Booking.class)))
+                .thenReturn(BOOKING);
 
         Booking booking = bookingDao.addBooking(BOOKING);
 
@@ -80,7 +85,8 @@ class BookingDataAccessServiceTest {
 
     @Test
     void testDeleteBookingById_whenDeleteBookingById_thenReturnDeletedBooking() {
-        when(bookingRepository.deleteBookingById(anyInt())).thenReturn(Optional.of(BOOKING));
+        when(bookingRepository.deleteBookingById(anyInt()))
+                .thenReturn(Optional.of(BOOKING));
 
         Optional<Booking> booking = bookingDao.deleteBookingById(BOOKING.getId());
 
@@ -91,7 +97,8 @@ class BookingDataAccessServiceTest {
 
     @Test
     void testDeleteBookingById_whenDeleteBookingByUnknownId_thenReturnNull() {
-        when(bookingRepository.deleteBookingById(anyInt())).thenReturn(Optional.empty());
+        when(bookingRepository.deleteBookingById(anyInt()))
+                .thenReturn(Optional.empty());
 
         Optional<Booking> booking = bookingDao.deleteBookingById(BOOKING.getId());
 

@@ -50,7 +50,10 @@ public class CarServiceImpl implements CarService {
     @Override
     public CarDto getCarByRegNumber(String regNumber) {
         Car car = carDao.getCarByRegNumber(regNumber)
-                .orElseThrow(() -> new IllegalArgumentException("No car with reg number = %s".formatted(regNumber)));
+                .orElseThrow(
+                        () -> new IllegalArgumentException("No car with reg number = %s".formatted(regNumber)
+                        )
+                );
 
         return carMapper.carToCarDto(car);
     }

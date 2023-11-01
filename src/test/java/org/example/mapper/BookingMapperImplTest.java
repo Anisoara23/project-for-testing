@@ -43,8 +43,10 @@ class BookingMapperImplTest {
 
     @Test
     void testBookingToBookingDto_whenBookingIsNotNull() {
-        when(userMapper.userToUserDto(any(User.class))).thenReturn(JOHN_DTO);
-        when(carMapper.carToCarDto(any(Car.class))).thenReturn(MERCEDES_DTO);
+        when(userMapper.userToUserDto(any(User.class)))
+                .thenReturn(JOHN_DTO);
+        when(carMapper.carToCarDto(any(Car.class)))
+                .thenReturn(MERCEDES_DTO);
 
         BookingDto mappedBooking = bookingMapper.bookingToBookingDto(BOOKING);
 
@@ -60,8 +62,10 @@ class BookingMapperImplTest {
 
     @Test
     void testBookingDtoToBooking_whenBookingDtoIsNotNull() {
-        when(userMapper.userDtoToUser(any(UserDto.class))).thenReturn(JOHN);
-        when(carMapper.carDtoToCar(any(CarDto.class))).thenReturn(MERCEDES);
+        when(userMapper.userDtoToUser(any(UserDto.class)))
+                .thenReturn(JOHN);
+        when(carMapper.carDtoToCar(any(CarDto.class)))
+                .thenReturn(MERCEDES);
 
         Booking mappedBooking = bookingMapper.bookingDtoToBooking(BOOKING_DTO);
 
