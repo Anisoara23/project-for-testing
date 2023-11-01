@@ -117,4 +117,8 @@ public class TestUtils {
     public static final BigDecimal LOWER_RENTAL_PRICE = new BigDecimal("49");
 
     public static final BigDecimal UPPER_RENTAL_PRICE = new BigDecimal("501");
+
+    public static final String NO_BOOKING = "No booking with id = %s";
+
+    public static final String UNNAVAILABLE_CAR = "Car %s with reg number %s is booked for period %s-%s";
 }

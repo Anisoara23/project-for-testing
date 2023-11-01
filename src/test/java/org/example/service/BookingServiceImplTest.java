@@ -31,6 +31,8 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
+import static utils.TestUtils.NO_BOOKING;
+import static utils.TestUtils.UNNAVAILABLE_CAR;
 
 @ExtendWith(MockitoExtension.class)
 class BookingServiceImplTest {
@@ -124,7 +126,7 @@ class BookingServiceImplTest {
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
                 () -> bookingService.getBookingById(booking.getId()));
 
-        assertEquals("No booking with id = %s".formatted(booking.getId()), illegalArgumentException.getMessage());
+        assertEquals(NO_BOOKING.formatted(booking.getId()), illegalArgumentException.getMessage());
         verify(bookingDao).getBookingById(anyInt());
         verifyNoInteractions(bookingMapper);
     }
@@ -149,7 +151,7 @@ class BookingServiceImplTest {
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
                 () -> bookingService.addBooking(bookingDto));
 
-        assertEquals("Car %s with reg number %s is booked for period %s-%s".formatted(
+        assertEquals(UNNAVAILABLE_CAR.formatted(
                 car.getBrand(),
                 car.getRegNumber(),
                 bookedAt.toLocalDate(),
