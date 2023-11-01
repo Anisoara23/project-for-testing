@@ -1,6 +1,5 @@
 package org.example.model;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,11 +11,6 @@ import static utils.TestUtils.BOOKING;
 import static utils.TestUtils.JOHN;
 
 class UserTest {
-
-    @BeforeEach
-    void setUp() {
-        JOHN.removeBooking(BOOKING);
-    }
 
     @Test
     void testAddBooking_whenAddNewBooking_thenBookingIsAddedInTheUserBookings() {
