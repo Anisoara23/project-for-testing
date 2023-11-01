@@ -17,12 +17,12 @@ class EmailValidatorTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"12345", "test", "test.com", "test@mail..com", "test@mail.", "test@mail"})
-    void testIsValidEmail_whenProvideIncorrectEmail_thenThrow(String email) {
+    void testIsValidEmail_whenProvideIncorrectEmail_thenReturnFalse(String email) {
         assertFalse(EmailValidator.isValidEmail(email));
     }
 
     @Test
-    void testIsValidEmail_whenProvideNull_thenThrow() {
+    void testIsValidEmail_whenProvideNull_thenReturnFalse() {
         assertFalse(EmailValidator.isValidEmail(null));
     }
 }
