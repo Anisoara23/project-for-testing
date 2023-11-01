@@ -17,9 +17,6 @@ public class Car {
 
     private boolean isBooked;
 
-    public Car() {
-    }
-
     public Car(String regNumber, BigDecimal rentalPrice, Brand brand, boolean isElectric, boolean isBooked) {
         this.regNumber = regNumber;
         this.rentalPrice = rentalPrice;
@@ -84,17 +81,5 @@ public class Car {
     @Override
     public int hashCode() {
         return Objects.hash(regNumber, rentalPrice, brand, isElectric, isBooked);
-    }
-
-    @Override
-    public String toString() {
-        return "Car{" +
-                "id=" + id +
-                ", regNumber='" + regNumber + '\'' +
-                ", rentalPrice=" + rentalPrice +
-                ", brand=" + brand +
-                ", isElectric=" + isElectric +
-                ", isBooked=" + isBooked +
-                '}';
     }
 }
