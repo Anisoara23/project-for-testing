@@ -48,14 +48,12 @@ public class TestUtils {
             "ABC123",
             new BigDecimal("100"),
             Brand.MERCEDES,
-            true,
             true);
 
     public static final CarDto MERCEDES_DTO = new CarDto(
             "ABC123",
             new BigDecimal("100"),
             Brand.MERCEDES,
-            true,
             true);
 
     public static final Car BMW = new Car(
@@ -63,14 +61,12 @@ public class TestUtils {
             "DEF456",
             new BigDecimal("250"),
             Brand.BMW,
-            false,
             false);
 
     public static final CarDto BMW_DTO = new CarDto(
             "DEF456",
             new BigDecimal("250"),
             Brand.BMW,
-            false,
             false);
 
     public static final Booking BOOKING = new Booking(1,

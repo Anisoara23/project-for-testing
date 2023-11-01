@@ -11,8 +11,7 @@ public class CarMapperImpl implements CarMapper {
                 car.getRegNumber(),
                 car.getRentalPrice(),
                 car.getBrand(),
-                car.isElectric(),
-                car.isBooked()
+                car.isElectric()
         ) : null;
     }
 
@@ -22,8 +21,7 @@ public class CarMapperImpl implements CarMapper {
                 carDto.getRegNumber(),
                 carDto.getRentalPrice(),
                 carDto.getBrand(),
-                carDto.isElectric(),
-                carDto.isBooked()
+                carDto.isElectric()
         ) : null;
     }
 }

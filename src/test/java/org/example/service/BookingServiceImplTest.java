@@ -84,13 +84,11 @@ class BookingServiceImplTest {
                 "ABC123",
                 new BigDecimal("100"),
                 Brand.MERCEDES,
-                true,
                 true);
 
         carDto = new CarDto("ABC123",
                 new BigDecimal("100"),
                 Brand.MERCEDES,
-                true,
                 true);
 
         bookingDto = new BookingDto(bookedAt, cancelAt, userDto, carDto);
@@ -133,15 +131,7 @@ class BookingServiceImplTest {
 
     @Test
     void testAddBooking_whenAddValidBooking_thenBookingIsAdded_andAllInfoIsValid() {
-        when(bookingMapper.bookingDtoToBooking(any(BookingDto.class)))
-                .thenAnswer(
-                        invocationOnMock -> {
-                            BookingDto bookDto = invocationOnMock.getArgument(0);
-                            if (bookDto.getCarDto().isBooked()) {
-                                booking.getCar().book();
-                            }
-                            return booking;
-                        });
+        when(bookingMapper.bookingDtoToBooking(any(BookingDto.class))).thenReturn(booking);
 
         bookingService.addBooking(bookingDto);
 
@@ -149,25 +139,6 @@ class BookingServiceImplTest {
         Booking addedBooking = bookingArgumentCaptor.getValue();
 
         assertEquals(booking, addedBooking);
-    }
-
-    @Test
-    void testAddBooking_whenAddBookingForAvailableCar_thenTheCarShouldBeBooked() {
-        when(bookingMapper.bookingDtoToBooking(any(BookingDto.class)))
-                .thenAnswer(
-                        invocationOnMock -> {
-                            BookingDto bookDto = invocationOnMock.getArgument(0);
-                            if (bookDto.getCarDto().isBooked()) {
-                                booking.getCar().book();
-                            }
-                            return booking;
-                        });
-
-        bookingService.addBooking(bookingDto);
-        verify(bookingDao).addBooking(bookingArgumentCaptor.capture());
-        Booking addedBooking = bookingArgumentCaptor.getValue();
-
-        assertTrue(addedBooking.getCar().isBooked());
     }
 
     @Test
@@ -187,15 +158,7 @@ class BookingServiceImplTest {
 
     @Test
     void testAddBooking_whenAddBookingForUser_thenUserShouldHaveTheBookingInItsListOfBookings() {
-        when(bookingMapper.bookingDtoToBooking(any(BookingDto.class)))
-                .thenAnswer(
-                        invocationOnMock -> {
-                            BookingDto bookDto = invocationOnMock.getArgument(0);
-                            if (bookDto.getCarDto().isBooked()) {
-                                booking.getCar().book();
-                            }
-                            return booking;
-                        });
+        when(bookingMapper.bookingDtoToBooking(any(BookingDto.class))).thenReturn(booking);
         when(bookingDao.addBooking(any(Booking.class))).thenReturn(booking);
 
         bookingService.addBooking(bookingDto);

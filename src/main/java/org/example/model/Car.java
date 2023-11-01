@@ -15,39 +15,19 @@ public class Car {
 
     private boolean isElectric;
 
-    private boolean isBooked;
-
-    public Car(String regNumber, BigDecimal rentalPrice, Brand brand, boolean isElectric, boolean isBooked) {
+    public Car(String regNumber, BigDecimal rentalPrice, Brand brand, boolean isElectric) {
         this.regNumber = regNumber;
         this.rentalPrice = rentalPrice;
         this.brand = brand;
         this.isElectric = isElectric;
-        this.isBooked = isBooked;
     }
 
-    public Car(int id, String regNumber, BigDecimal rentalPrice, Brand brand, boolean isElectric, boolean isBooked) {
+    public Car(int id, String regNumber, BigDecimal rentalPrice, Brand brand, boolean isElectric) {
         this.id = id;
         this.regNumber = regNumber;
         this.rentalPrice = rentalPrice;
         this.brand = brand;
         this.isElectric = isElectric;
-        this.isBooked = isBooked;
-    }
-
-    public void book() {
-        if (!isBooked) {
-            isBooked = true;
-        }
-    }
-
-    public void cancelBooking() {
-        if (isBooked) {
-            isBooked = false;
-        }
-    }
-
-    public boolean isBooked() {
-        return isBooked;
     }
 
     public int getId() {
@@ -75,11 +55,11 @@ public class Car {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return isElectric == car.isElectric && isBooked == car.isBooked && Objects.equals(regNumber, car.regNumber) && Objects.equals(rentalPrice, car.rentalPrice) && brand == car.brand;
+        return isElectric == car.isElectric && Objects.equals(regNumber, car.regNumber) && Objects.equals(rentalPrice, car.rentalPrice) && brand == car.brand;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(regNumber, rentalPrice, brand, isElectric, isBooked);
+        return Objects.hash(regNumber, rentalPrice, brand, isElectric);
     }
 }

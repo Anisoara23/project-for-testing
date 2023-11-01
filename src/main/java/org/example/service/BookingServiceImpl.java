@@ -42,7 +42,6 @@ public class BookingServiceImpl implements BookingService {
     public void addBooking(BookingDto bookingDto) {
         CarDto carDto = bookingDto.getCarDto();
         validateBookingAvailability(carDto, bookingDto);
-        carDto.setBooked(true);
 
         Booking bookingToAdd = bookingMapper.bookingDtoToBooking(bookingDto);
         bookingToAdd.getUser().addBooking(bookingToAdd);
