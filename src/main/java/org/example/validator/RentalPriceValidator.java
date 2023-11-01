@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 
 public class RentalPriceValidator {
 
+    private RentalPriceValidator() {
+    }
+
     private static final int LOWER_BOUND_PRICE = 50;
 
     private static final int UPPER_BOUND_PRICE = 500;

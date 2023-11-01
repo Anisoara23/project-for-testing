@@ -8,7 +8,6 @@ import org.example.validator.EmailValidator;
 import org.example.validator.PhoneNumberValidator;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.example.validator.AgeValidator.validateAge;
 
@@ -29,7 +28,7 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> getAllUsers() {
         return userDao.getAllUsers().stream()
                 .map(userMapper::userToUserDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
