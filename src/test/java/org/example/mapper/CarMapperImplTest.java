@@ -5,9 +5,10 @@ import org.example.model.Car;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static utils.TestUtils.MERCEDES;
-import static utils.TestUtils.MERCEDES_DTO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static utils.TestUtils.BMW;
+import static utils.TestUtils.BMW_DTO;
 
 class CarMapperImplTest {
 
@@ -19,14 +20,26 @@ class CarMapperImplTest {
     }
 
     @Test
-    void testCarToCarDto() {
-        CarDto mappedCar = carMapper.carToCarDto(MERCEDES);
-        assertEquals(MERCEDES_DTO, mappedCar);
+    void testCarToCarDto_whenCarIsNotNull() {
+        CarDto mappedCar = carMapper.carToCarDto(BMW);
+        assertEquals(BMW_DTO, mappedCar);
     }
 
     @Test
-    void testCarDtoToCar() {
-        Car mappedCar = carMapper.carDtoToCar(MERCEDES_DTO);
-        assertEquals(MERCEDES, mappedCar);
+    void testCarToCarDto_whenCarNotNull() {
+        CarDto mappedCar = carMapper.carToCarDto(null);
+        assertNull(mappedCar);
+    }
+
+    @Test
+    void testCarDtoToCar_whenCarDtoIsNotNull() {
+        Car mappedCar = carMapper.carDtoToCar(BMW_DTO);
+        assertEquals(BMW, mappedCar);
+    }
+
+    @Test
+    void testCarDtoToCar_whenCarDtoIsNull() {
+        Car mappedCar = carMapper.carDtoToCar(null);
+        assertNull(mappedCar);
     }
 }

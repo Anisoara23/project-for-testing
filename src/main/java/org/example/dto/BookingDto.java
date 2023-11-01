@@ -1,8 +1,5 @@
 package org.example.dto;
 
-import org.example.model.Car;
-import org.example.model.User;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -15,24 +12,24 @@ public class BookingDto {
 
     private LocalDateTime cancelAt;
 
-    private User user;
+    private UserDto userDto;
 
-    private Car car;
+    private CarDto carDto;
 
     private BigDecimal totalRentalPrice;
 
-    public BookingDto(LocalDateTime bookedAt, LocalDateTime cancelAt, User user, Car car, BigDecimal totalRentalPrice) {
+    public BookingDto(LocalDateTime bookedAt, LocalDateTime cancelAt, UserDto userDto, CarDto carDto, BigDecimal totalRentalPrice) {
         this.bookedAt = bookedAt;
         this.cancelAt = cancelAt;
-        this.user = user;
-        this.car = car;
+        this.userDto = userDto;
+        this.carDto = carDto;
         this.totalRentalPrice = totalRentalPrice;
     }
 
-    public BookingDto(LocalDateTime bookedAt, LocalDateTime cancelAt,User user, Car car) {
+    public BookingDto(LocalDateTime bookedAt, LocalDateTime cancelAt, UserDto userDto, CarDto carDto) {
         this.bookedAt = bookedAt;
-        this.user = user;
-        this.car = car;
+        this.userDto = userDto;
+        this.carDto = carDto;
         this.cancelAt = cancelAt;
     }
 
@@ -44,20 +41,12 @@ public class BookingDto {
         return cancelAt;
     }
 
-    public User getUser() {
-        return user;
+    public UserDto getUserDto() {
+        return userDto;
     }
 
-    public Car getCar() {
-        return car;
-    }
-
-    public void setBookedAt(LocalDateTime bookedAt) {
-        this.bookedAt = bookedAt;
-    }
-
-    public void setCancelAt(LocalDateTime cancelAt) {
-        this.cancelAt = cancelAt;
+    public CarDto getCarDto() {
+        return carDto;
     }
 
     @Override
@@ -65,11 +54,23 @@ public class BookingDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookingDto that = (BookingDto) o;
-        return Objects.equals(bookedAt, that.bookedAt) && Objects.equals(cancelAt, that.cancelAt) && Objects.equals(user, that.user) && Objects.equals(car, that.car);
+        return Objects.equals(bookedAt, that.bookedAt) && Objects.equals(cancelAt, that.cancelAt) && Objects.equals(userDto, that.userDto) && Objects.equals(carDto, that.carDto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bookedAt, cancelAt, user, car);
+        return Objects.hash(bookedAt, cancelAt, userDto, carDto);
+    }
+
+    @Override
+    public String toString() {
+        return "BookingDto{" +
+                "id=" + id +
+                ", bookedAt=" + bookedAt +
+                ", cancelAt=" + cancelAt +
+                ", userDto=" + userDto +
+                ", carDto=" + carDto +
+                ", totalRentalPrice=" + totalRentalPrice +
+                '}';
     }
 }

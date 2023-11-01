@@ -6,8 +6,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static utils.TestUtils.JOHN;
-import static utils.TestUtils.JOHN_DTO;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static utils.TestUtils.MARIA;
+import static utils.TestUtils.MARIA_DTO;
 
 class UserMapperImplTest {
 
@@ -19,14 +20,26 @@ class UserMapperImplTest {
     }
 
     @Test
-    void testUserToUserDto() {
-        UserDto mappedUser = userMapper.userToUserDto(JOHN);
-        assertEquals(JOHN_DTO, mappedUser);
+    void testUserToUserDto_whenUserIsNotNull() {
+        UserDto mappedUser = userMapper.userToUserDto(MARIA);
+        assertEquals(MARIA_DTO, mappedUser);
     }
 
     @Test
-    void testUserDtoToUser() {
-        User mappedUser = userMapper.userDtoToUser(JOHN_DTO);
-        assertEquals(JOHN, mappedUser);
+    void testUserToUserDto_whenUserIsNull() {
+        UserDto mappedUser = userMapper.userToUserDto(null);
+        assertNull(mappedUser);
+    }
+
+    @Test
+    void testUserDtoToUse_whenUserDtoIsNotNull() {
+        User mappedUser = userMapper.userDtoToUser(MARIA_DTO);
+        assertEquals(MARIA, mappedUser);
+    }
+
+    @Test
+    void testUserDtoToUser_whenUserDtoIsNull() {
+        User mappedUser = userMapper.userDtoToUser(null);
+        assertNull(mappedUser);
     }
 }

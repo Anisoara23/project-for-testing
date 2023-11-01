@@ -42,18 +42,6 @@ public class UserDto {
         return phoneNumber;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

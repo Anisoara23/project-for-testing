@@ -7,23 +7,23 @@ public class CarMapperImpl implements CarMapper{
 
     @Override
     public CarDto carToCarDto(Car car) {
-        return new CarDto(
+        return car != null ? new CarDto(
                 car.getRegNumber(),
                 car.getRentalPrice(),
                 car.getBrand(),
                 car.isElectric(),
                 car.isBooked()
-        );
+        ): null;
     }
 
     @Override
     public Car carDtoToCar(CarDto carDto) {
-        return new Car(
+        return carDto != null ? new Car(
                 carDto.getRegNumber(),
                 carDto.getRentalPrice(),
                 carDto.getBrand(),
                 carDto.isElectric(),
                 carDto.isBooked()
-        );
+        ) : null;
     }
 }

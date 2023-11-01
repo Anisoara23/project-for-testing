@@ -40,13 +40,15 @@ public class User {
     public void addBooking(Booking booking) {
         if (!bookings.contains(booking)) {
             bookings.add(booking);
+            booking.setUser(this);
         }
-        booking.setUser(this);
     }
 
     public void removeBooking(Booking booking) {
-        bookings.remove(booking);
-        booking.setUser(null);
+        if (bookings.contains(booking)){
+            bookings.remove(booking);
+            booking.setUser(null);
+        }
     }
 
     public List<Booking> getBookings() {

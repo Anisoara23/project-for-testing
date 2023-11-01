@@ -7,23 +7,23 @@ public class UserMapperImpl implements UserMapper{
 
     @Override
     public UserDto userToUserDto(User user) {
-        return new UserDto(
+        return user != null ? new UserDto(
                 user.getFirstName(),
                 user.getLastName(),
                 user.getAge(),
                 user.getEmail(),
                 user.getPhoneNumber()
-        );
+        ) : null;
     }
 
     @Override
     public User userDtoToUser(UserDto userDto) {
-        return new User(
+        return userDto != null ? new User(
                 userDto.getFirstName(),
                 userDto.getLastName(),
                 userDto.getAge(),
                 userDto.getEmail(),
                 userDto.getPhoneNumber()
-        );
+        ) : null;
     }
 }

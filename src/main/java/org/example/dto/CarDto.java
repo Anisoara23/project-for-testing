@@ -45,12 +45,8 @@ public class CarDto {
         return isBooked;
     }
 
-    public void setRegNumber(String regNumber) {
-        this.regNumber = regNumber;
-    }
-
-    public void setRentalPrice(BigDecimal rentalPrice) {
-        this.rentalPrice = rentalPrice;
+    public void setBooked(boolean booked) {
+        isBooked = booked;
     }
 
     @Override
@@ -64,5 +60,16 @@ public class CarDto {
     @Override
     public int hashCode() {
         return Objects.hash(regNumber, rentalPrice, brand, isElectric, isBooked);
+    }
+
+    @Override
+    public String toString() {
+        return "CarDto{" +
+                "regNumber='" + regNumber + '\'' +
+                ", rentalPrice=" + rentalPrice +
+                ", brand=" + brand +
+                ", isElectric=" + isElectric +
+                ", isBooked=" + isBooked +
+                '}';
     }
 }

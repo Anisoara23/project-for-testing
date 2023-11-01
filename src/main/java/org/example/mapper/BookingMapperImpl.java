@@ -7,24 +7,33 @@ import java.math.BigDecimal;
 
 public class BookingMapperImpl implements BookingMapper{
 
+    private final UserMapper userMapper;
+
+    private final CarMapper carMapper;
+
+    public BookingMapperImpl(UserMapper userMapper, CarMapper carMapper) {
+        this.userMapper = userMapper;
+        this.carMapper = carMapper;
+    }
+
     @Override
     public Booking bookingDtoToBooking(BookingDto bookingDto) {
-        return new Booking(
+        return bookingDto != null ? new Booking(
                 bookingDto.getBookedAt(),
                 bookingDto.getCancelAt(),
-                bookingDto.getUser(),
-                bookingDto.getCar()
-        );
+                userMapper.userDtoToUser(bookingDto.getUserDto()),
+                carMapper.carDtoToCar(bookingDto.getCarDto())
+        ) : null;
     }
 
     @Override
     public BookingDto bookingToBookingDto(Booking booking) {
-        return new BookingDto(
+        return booking  != null ? new BookingDto(
                 booking.getBookedAt(),
                 booking.getCancelAt(),
-                booking.getUser(),
-                booking.getCar(),
+                userMapper.userToUserDto(booking.getUser()),
+                carMapper.carToCarDto(booking.getCar()),
                 BigDecimal.valueOf(booking.getTotalRentalPrice())
-        );
+        ) : null;
     }
 }
