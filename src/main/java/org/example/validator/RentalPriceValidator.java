@@ -13,5 +13,4 @@ public class RentalPriceValidator {
             throw new IllegalArgumentException("Rental Price should be equal or less than 500");
         }
     }
-
 }

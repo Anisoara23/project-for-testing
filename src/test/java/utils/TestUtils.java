@@ -98,7 +98,6 @@ public class TestUtils {
 
     public static final String PHONE_NUMBER_IS_TAKEN = "Phone number is already taken by other user!";
 
-
     public static final String AGE_LESS_THAN_ACCEPTED = "Users with age less than 18 can not book cars!";
 
     public static final String NO_USER_WITH_PROVIDED_DETAILS = "No user with provided details!";
@@ -110,4 +109,10 @@ public class TestUtils {
     public static final String SHOULD_BE_EQUAL_OR_MORE_THAN_50 = "Rental Price should be equal or more than 50";
 
     public static final String SHOULD_BE_EQUAL_OR_LESS_THAN_500 = "Rental Price should be equal or less than 500";
+
+    public static final int VALID_AGE = 18;
+
+    public static final int PROVIDED_VALID_AGE = 19;
+
+    public static final int PROVIDED_INVALID_AGE = 17;
 }
