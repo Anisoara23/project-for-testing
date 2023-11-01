@@ -115,4 +115,10 @@ public class TestUtils {
     public static final int PROVIDED_VALID_AGE = 19;
 
     public static final int PROVIDED_INVALID_AGE = 17;
+
+    public static final BigDecimal VALID_RENTAL_PRICE = new BigDecimal("150");
+
+    public static final BigDecimal LOWER_RENTAL_PRICE = new BigDecimal("49");
+
+    public static final BigDecimal UPPER_RENTAL_PRICE = new BigDecimal("501");
 }

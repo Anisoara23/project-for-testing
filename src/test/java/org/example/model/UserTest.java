@@ -1,7 +1,5 @@
 package org.example.model;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,11 +37,7 @@ class UserTest {
     @Test
     void testRemoveBooking_whenRemoveExistingBooking_thenBookingIsRemoved() {
         JOHN.addBooking(BOOKING);
-        System.out.println(JOHN.getBookings());
         JOHN.removeBooking(BOOKING);
-        System.out.println(JOHN.getBookings().contains(BOOKING));
-        System.out.println(BOOKING);
-        System.out.println(JOHN.getBookings());
 
         List<Booking> bookings = JOHN.getBookings();
 

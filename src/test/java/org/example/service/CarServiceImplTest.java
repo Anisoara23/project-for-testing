@@ -93,7 +93,8 @@ class CarServiceImplTest {
         try (MockedStatic<RegNumberValidator> regNumberValidatorMocked = mockStatic(RegNumberValidator.class)) {
             regNumberValidatorMocked.when(() -> RegNumberValidator.isRegNumberValid(anyString())).thenReturn(false);
 
-            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> carService.addCar(MERCEDES_DTO));
+            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+                    () -> carService.addCar(MERCEDES_DTO));
 
             assertEquals(INVALID_REG_NUMBER, illegalArgumentException.getMessage());
             verify(carDao, times(0)).addCar(any(Car.class));
@@ -104,7 +105,8 @@ class CarServiceImplTest {
     void testAddCar_whenAddCarWithUsedRegNumber_thenThrow() {
         when(carDao.getCarByRegNumber(anyString())).thenReturn(Optional.of(BMW));
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> carService.addCar(MERCEDES_DTO));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+                () -> carService.addCar(MERCEDES_DTO));
 
         assertEquals(REG_NUMBER_IS_ALREADY_USED, illegalArgumentException.getMessage());
         verify(carDao).getCarByRegNumber(anyString());
@@ -117,7 +119,8 @@ class CarServiceImplTest {
             rentalPriceValidatorMocked.when(() -> RentalPriceValidator.validateRentalPrice(any()))
                     .thenThrow(new IllegalArgumentException(SHOULD_BE_EQUAL_OR_MORE_THAN_50));
 
-            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> carService.addCar(MERCEDES_DTO));
+            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+                    () -> carService.addCar(MERCEDES_DTO));
 
             assertEquals(SHOULD_BE_EQUAL_OR_MORE_THAN_50, illegalArgumentException.getMessage());
             verify(carDao, times(0)).addCar(any(Car.class));
@@ -130,7 +133,8 @@ class CarServiceImplTest {
             rentalPriceValidatorMocked.when(() -> RentalPriceValidator.validateRentalPrice(any()))
                     .thenThrow(new IllegalArgumentException(SHOULD_BE_EQUAL_OR_LESS_THAN_500));
 
-            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> carService.addCar(MERCEDES_DTO));
+            IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+                    () -> carService.addCar(MERCEDES_DTO));
 
             assertEquals(SHOULD_BE_EQUAL_OR_LESS_THAN_500, illegalArgumentException.getMessage());
             verify(carDao, times(0)).addCar(any(Car.class));
@@ -152,7 +156,8 @@ class CarServiceImplTest {
     void testGetCarByRegNumber_whenGetCarByInvalidRegNumber_thenThrow() {
         when(carDao.getCarByRegNumber(anyString())).thenReturn(Optional.empty());
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> carService.getCarByRegNumber(INVALID_DATA));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+                () -> carService.getCarByRegNumber(INVALID_DATA));
 
         assertEquals(NO_CAR_WITH_REG_NUMBER, illegalArgumentException.getMessage());
     }
@@ -174,7 +179,8 @@ class CarServiceImplTest {
         when(carDao.getAllCars()).thenReturn(List.of(MERCEDES));
         when(carMapper.carDtoToCar(any(CarDto.class))).thenReturn(BMW);
 
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> carService.deleteCar(BMW_DTO));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
+                () -> carService.deleteCar(BMW_DTO));
 
         assertEquals("No such car", illegalArgumentException.getMessage());
         verify(carDao).getAllCars();
