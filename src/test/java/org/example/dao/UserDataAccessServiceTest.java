@@ -72,6 +72,27 @@ class UserDataAccessServiceTest {
         verify(userRepository).existsUserByEmail(anyString());
     }
 
+
+    @Test
+    void testExistsUserByPhoneNumber_whenUserWithProvidedPhoneExists_thenReturnTrue() {
+        when(userRepository.existsUserByPhoneNumber(anyString())).thenReturn(true);
+
+        boolean existsUserByPhoneNumber = userDao.existsUserByPhoneNumber(JOHN.getPhoneNumber());
+
+        assertTrue(existsUserByPhoneNumber);
+        verify(userRepository).existsUserByPhoneNumber(anyString());
+    }
+
+    @Test
+    void testExistsUserByPhoneNumber_whenNoUserWithProvidedPhone_thenReturnFalse() {
+        when(userRepository.existsUserByPhoneNumber(anyString())).thenReturn(false);
+
+        boolean existsUserByPhoneNumber = userDao.existsUserByPhoneNumber(JOHN.getPhoneNumber());
+
+        assertFalse(existsUserByPhoneNumber);
+        verify(userRepository).existsUserByPhoneNumber(anyString());
+    }
+
     @Test
     void testAddUser_whenAddNewUser_thenAddedUserIsReturned() {
         when(userRepository.addUser(any(User.class))).thenReturn(JOHN);
