@@ -46,12 +46,6 @@ public class UserServiceImpl implements UserService {
         return userMapper.userToUserDto(addedUser);
     }
 
-    private void validateUserDetails(UserDto userDto) {
-        validateEmail(userDto);
-        validatePhoneNumber(userDto);
-        validateAge(userDto.getAge(), ACCEPTED_USER_AGE);
-    }
-
     @Override
     public void deleteUser(UserDto userDto) {
         User mappedUserToDelete = userMapper.userDtoToUser(userDto);
@@ -61,6 +55,12 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new IllegalArgumentException("No user with provided details!"));
 
         userDao.deleteUserById(userToDelete.getId());
+    }
+
+    private void validateUserDetails(UserDto userDto) {
+        validateEmail(userDto);
+        validatePhoneNumber(userDto);
+        validateAge(userDto.getAge(), ACCEPTED_USER_AGE);
     }
 
     private void validatePhoneNumber(UserDto userDto) {
