@@ -1,7 +1,5 @@
 package org.example.validator;
 
-import org.example.dto.UserDto;
-
 public class AgeValidator {
 
     public static void validateAge(int age, int acceptedAge) {

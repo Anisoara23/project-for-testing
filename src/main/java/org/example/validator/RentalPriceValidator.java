@@ -1,7 +1,5 @@
 package org.example.validator;
 
-import org.example.dto.CarDto;
-
 import java.math.BigDecimal;
 
 public class RentalPriceValidator {

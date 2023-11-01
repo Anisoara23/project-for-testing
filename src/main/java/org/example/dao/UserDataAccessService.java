@@ -6,7 +6,7 @@ import org.example.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDataAccessService implements UserDao{
+public class UserDataAccessService implements UserDao {
 
     private final UserRepository userRepository;
 

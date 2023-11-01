@@ -6,7 +6,7 @@ import org.example.repository.BookingRepository;
 import java.util.List;
 import java.util.Optional;
 
-public class BookingDataAccessService implements BookingDao{
+public class BookingDataAccessService implements BookingDao {
 
     private final BookingRepository bookingRepository;
 

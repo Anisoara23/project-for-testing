@@ -3,7 +3,7 @@ package org.example.mapper;
 import org.example.dto.UserDto;
 import org.example.model.User;
 
-public class UserMapperImpl implements UserMapper{
+public class UserMapperImpl implements UserMapper {
 
     @Override
     public UserDto userToUserDto(User user) {

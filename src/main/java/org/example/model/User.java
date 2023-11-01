@@ -45,7 +45,7 @@ public class User {
     }
 
     public void removeBooking(Booking booking) {
-        if (bookings.contains(booking)){
+        if (bookings.contains(booking)) {
             bookings.remove(booking);
             booking.setUser(null);
         }

@@ -3,7 +3,7 @@ package org.example.mapper;
 import org.example.dto.CarDto;
 import org.example.model.Car;
 
-public class CarMapperImpl implements CarMapper{
+public class CarMapperImpl implements CarMapper {
 
     @Override
     public CarDto carToCarDto(Car car) {
@@ -13,7 +13,7 @@ public class CarMapperImpl implements CarMapper{
                 car.getBrand(),
                 car.isElectric(),
                 car.isBooked()
-        ): null;
+        ) : null;
     }
 
     @Override

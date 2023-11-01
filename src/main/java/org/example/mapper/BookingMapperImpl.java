@@ -5,7 +5,7 @@ import org.example.model.Booking;
 
 import java.math.BigDecimal;
 
-public class BookingMapperImpl implements BookingMapper{
+public class BookingMapperImpl implements BookingMapper {
 
     private final UserMapper userMapper;
 
@@ -28,7 +28,7 @@ public class BookingMapperImpl implements BookingMapper{
 
     @Override
     public BookingDto bookingToBookingDto(Booking booking) {
-        return booking  != null ? new BookingDto(
+        return booking != null ? new BookingDto(
                 booking.getBookedAt(),
                 booking.getCancelAt(),
                 userMapper.userToUserDto(booking.getUser()),
