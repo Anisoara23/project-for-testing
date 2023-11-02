@@ -1,5 +1,7 @@
 package org.example.mapper;
 
+import org.example.calculator.RentCalculator;
+import org.example.calculator.RentCalculatorImpl;
 import org.example.dto.BookingDto;
 import org.example.model.Booking;
 
@@ -28,12 +30,14 @@ public class BookingMapperImpl implements BookingMapper {
 
     @Override
     public BookingDto bookingToBookingDto(Booking booking) {
+        RentCalculator calculator = new RentCalculatorImpl();
+
         return booking != null ? new BookingDto(
                 booking.getBookedAt(),
                 booking.getCancelAt(),
                 userMapper.userToUserDto(booking.getUser()),
                 carMapper.carToCarDto(booking.getCar()),
-                BigDecimal.valueOf(booking.getTotalRentalPrice())
+                BigDecimal.valueOf(calculator.getTotalRentalPrice(booking))
         ) : null;
     }
 }

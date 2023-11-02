@@ -1,7 +1,6 @@
 package org.example.model;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Booking {
@@ -68,14 +67,6 @@ public class Booking {
 
     public Car getCar() {
         return car;
-    }
-
-    public double getTotalRentalPrice() {
-        double rentalPrice = car.getRentalPrice().doubleValue();
-        long numberOfRentDays = ChronoUnit.DAYS
-                .between(bookedAt, cancelAt);
-
-        return rentalPrice * numberOfRentDays;
     }
 
     @Override
