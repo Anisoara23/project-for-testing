@@ -121,4 +121,6 @@ public class TestUtils {
     public static final String NO_BOOKING = "No booking with id = %s";
 
     public static final String UNAVAILABLE_CAR = "Car %s with reg number %s is booked for period %s-%s";
+
+    public static final String USERS_CSV = "src/main/resources/users.csv";
 }
