@@ -18,7 +18,7 @@ import static org.example.utils.Utils.USER;
 public class UserRepositoryImpl implements UserRepository {
 
 
-    private String insertStatement = "INSERT INTO \"user\"(" +
+    private final String insertStatement = "INSERT INTO \"user\"(" +
             "first_name, " +
             "last_name, " +
             "age, " +
@@ -27,6 +27,9 @@ public class UserRepositoryImpl implements UserRepository {
             ") " +
             "VALUES(?, ?, ?, ?, ?);";
 
+    private final String existsByEmailStatement = "SELECT FROM \"user\" " +
+            "WHERE email = ?;";
+
     @Override
     public List<User> findAllUsers() {
         return null;
@@ -34,7 +37,18 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean existsUserByEmail(String email) {
-        return false;
+        try (
+                Connection connection = getConnection(URL, USER, PASSWORD);
+                PreparedStatement statement = connection.prepareStatement(
+                        existsByEmailStatement,
+                        RETURN_GENERATED_KEYS)
+        ) {
+            statement.setString(1, email);
+
+            return statement.executeQuery().next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
