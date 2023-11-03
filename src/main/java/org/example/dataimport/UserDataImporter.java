@@ -29,7 +29,11 @@ public class UserDataImporter {
                     next.get(4)
             );
 
-            userController.addUser(userDto);
+            try {
+                userController.addUser(userDto);
+            } catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 }
