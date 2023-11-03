@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static utils.TestUtils.LIST_OF_JOHN_CREDENTIALS;
 import static utils.TestUtils.USERS_CSV;
 
 class CsvReaderTest {
@@ -19,9 +20,7 @@ class CsvReaderTest {
 
     @Test
     void testReadData() {
-        List<List<String>> expectedData = List.of(
-                List.of("John", "Smith", "23", "johny@mail.com", "098765432")
-        );
+        List<List<String>> expectedData = List.of(LIST_OF_JOHN_CREDENTIALS);
 
         List<List<String>> actualReadData = csvReader.readData();
 
