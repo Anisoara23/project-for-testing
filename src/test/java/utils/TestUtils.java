@@ -132,4 +132,10 @@ public class TestUtils {
             "johny@mail.com",
             "098765432"
     );
+
+    public static final String URL = "jdbc:h2:mem:user";
+
+    public static final String USER = "";
+
+    public static final String PASSWORD = "";
 }

@@ -18,6 +18,7 @@
         <surefire.version>3.2.1</surefire.version>
         <opencsv.version>5.8</opencsv.version>
         <postgres.version>42.6.0</postgres.version>
+        <h2.version>2.2.224</h2.version>
   </properties>
 
     <dependencies>
@@ -67,6 +68,13 @@
             <artifactId>postgresql</artifactId>
             <version>${postgres.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -14,13 +14,21 @@ import org.example.repository.UserRepositoryImpl;
 import org.example.service.UserService;
 import org.example.service.UserServiceImpl;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import static java.sql.DriverManager.getConnection;
+import static org.example.utils.Utils.PASSWORD;
+import static org.example.utils.Utils.URL;
+import static org.example.utils.Utils.USER;
 import static org.example.utils.Utils.USERS_CSV;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Reader reader = new CsvReader(USERS_CSV);
-        UserRepository userRepository = new UserRepositoryImpl();
+        Connection connection = getConnection(URL, USER, PASSWORD);
+        UserRepository userRepository = new UserRepositoryImpl(connection);
         UserDao userDao = new UserDataAccessService(userRepository);
         UserMapper userMapper = new UserMapperImpl();
         UserService userService = new UserServiceImpl(

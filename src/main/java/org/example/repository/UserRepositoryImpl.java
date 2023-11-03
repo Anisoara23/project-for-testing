@@ -6,31 +6,23 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
-import static java.sql.DriverManager.getConnection;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
-import static org.example.utils.Utils.PASSWORD;
-import static org.example.utils.Utils.URL;
-import static org.example.utils.Utils.USER;
+import static org.example.utils.Utils.CREATE_TABLE_STATEMENT;
+import static org.example.utils.Utils.EXISTS_BY_EMAIL_STATEMENT;
+import static org.example.utils.Utils.EXISTS_BY_PHONE_NUMBER_STATEMENT;
+import static org.example.utils.Utils.INSERT_STATEMENT;
 
 public class UserRepositoryImpl implements UserRepository {
 
-    private final String insertStatement = "INSERT INTO \"user\"(" +
-            "first_name, " +
-            "last_name, " +
-            "age, " +
-            "email, " +
-            "phone_number" +
-            ") " +
-            "VALUES(?, ?, ?, ?, ?);";
+    private final Connection connection;
 
-    private final String existsByEmailStatement = "SELECT FROM \"user\" " +
-            "WHERE email = ?;";
-
-    private final String existsByPhoneNumberStatement = "SELECT FROM \"user\" " +
-            "WHERE phone_number = ?;";
+    public UserRepositoryImpl(Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public List<User> findAllUsers() {
@@ -40,9 +32,8 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean existsUserByEmail(String email) {
         try (
-                Connection connection = getConnection(URL, USER, PASSWORD);
                 PreparedStatement statement = connection.prepareStatement(
-                        existsByEmailStatement,
+                        EXISTS_BY_EMAIL_STATEMENT,
                         RETURN_GENERATED_KEYS)
         ) {
             statement.setString(1, email);
@@ -56,9 +47,8 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User saveUser(User user) {
         try (
-                Connection connection = getConnection(URL, USER, PASSWORD);
                 PreparedStatement statement = connection.prepareStatement(
-                        insertStatement,
+                        INSERT_STATEMENT,
                         RETURN_GENERATED_KEYS)
         ) {
             statement.setString(1, user.getFirstName());
@@ -88,14 +78,21 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean existsUserByPhoneNumber(String phoneNumber) {
         try (
-                Connection connection = getConnection(URL, USER, PASSWORD);
                 PreparedStatement statement = connection.prepareStatement(
-                        existsByPhoneNumberStatement,
+                        EXISTS_BY_PHONE_NUMBER_STATEMENT,
                         RETURN_GENERATED_KEYS)
         ) {
             statement.setString(1, phoneNumber);
 
             return statement.executeQuery().next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void createTable() {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(CREATE_TABLE_STATEMENT);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
