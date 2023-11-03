@@ -19,12 +19,12 @@ class CsvReaderTest {
 
     @Test
     void testReadData() {
-        List<List<String>> readData = csvReader.readData();
         List<List<String>> expectedData = List.of(
-                List.of("firstName", "lastName", "age", "email", "phoneNumber"),
                 List.of("John", "Smith", "23", "johny@mail.com", "098765432")
         );
 
-        assertEquals(expectedData, readData);
+        List<List<String>> actualReadData = csvReader.readData();
+
+        assertEquals(expectedData, actualReadData);
     }
 }
