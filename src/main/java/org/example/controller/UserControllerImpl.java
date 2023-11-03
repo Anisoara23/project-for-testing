@@ -12,7 +12,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public void addUser(UserDto userDto) {
-        userService.addUser(userDto);
+    public UserDto addUser(UserDto userDto) {
+        return userService.addUser(userDto);
     }
 }

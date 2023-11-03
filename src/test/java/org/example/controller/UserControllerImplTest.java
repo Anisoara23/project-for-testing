@@ -28,7 +28,9 @@ class UserControllerImplTest {
     void testAddUser() {
         when(userService.addUser(any(UserDto.class))).thenReturn(JOHN_DTO);
 
-        assertDoesNotThrow(() -> userController.addUser(JOHN_DTO));
+        UserDto addedUser = userController.addUser(JOHN_DTO);
+
+        assertEquals(JOHN_DTO, addedUser);
         verify(userService).addUser(any(UserDto.class));
     }
 }

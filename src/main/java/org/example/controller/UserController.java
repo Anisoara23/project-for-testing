@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface UserController {
 
-    void addUser(UserDto userDto);
+    UserDto addUser(UserDto userDto);
 }
