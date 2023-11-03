@@ -21,17 +21,15 @@ public class UserDataImporter {
         List<List<String>> readData = reader.readData();
 
         for (List<String> next : readData) {
-            UserDto userDto = new UserDto(
-                    next.get(0),
-                    next.get(1),
-                    Integer.parseInt(next.get(2)),
-                    next.get(3),
-                    next.get(4)
-            );
-
             try {
+                UserDto userDto = new UserDto(
+                        next.get(0),
+                        next.get(1),
+                        Integer.parseInt(next.get(2)),
+                        next.get(3),
+                        next.get(4));
                 userController.addUser(userDto);
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e){
                 System.out.println(e.getMessage());
             }
         }

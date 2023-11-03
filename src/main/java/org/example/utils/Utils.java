@@ -32,5 +32,9 @@ public class Utils {
             "phone_number varchar(100)" +
             ");";
 
+    public static final String SELECT_ALL_USERS_STATEMENT = "SELECT * FROM \"user\"";
+
+    public static final String DELETE_STATEMENT = "DELETE FROM \"user\" WHERE id = ?;";
+
     public static final String USERS_CSV = "src/main/resources/users.csv";
 }

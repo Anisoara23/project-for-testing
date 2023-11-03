@@ -29,12 +29,12 @@ class PhoneNumberValidatorTest {
             "09-98-87",
             "09876543"
     })
-    void testIsPhoneNumberValid_whenProvideIncorrectPhoneNumber_thenThrow(String phoneNumber) {
+    void testIsPhoneNumberValid_whenProvideIncorrectPhoneNumber_thenReturnFalse(String phoneNumber) {
         assertFalse(PhoneNumberValidator.isPhoneNumberValid(phoneNumber));
     }
 
     @Test
-    void testIsPhoneNumberValid_whenProvideNull_thenThrow() {
+    void testIsPhoneNumberValid_whenProvideNull_thenReturnFalse() {
         assertFalse(PhoneNumberValidator.isPhoneNumberValid(null));
     }
 }

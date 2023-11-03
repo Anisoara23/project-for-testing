@@ -7,14 +7,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 import static org.example.utils.Utils.CREATE_TABLE_STATEMENT;
+import static org.example.utils.Utils.DELETE_STATEMENT;
 import static org.example.utils.Utils.EXISTS_BY_EMAIL_STATEMENT;
 import static org.example.utils.Utils.EXISTS_BY_PHONE_NUMBER_STATEMENT;
 import static org.example.utils.Utils.INSERT_STATEMENT;
+import static org.example.utils.Utils.SELECT_ALL_USERS_STATEMENT;
 
 public class UserRepositoryImpl implements UserRepository {
 
@@ -26,7 +28,28 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> findAllUsers() {
-        return null;
+        List<User> users = new ArrayList<>();
+
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(SELECT_ALL_USERS_STATEMENT);
+
+            while (resultSet.next()) {
+                users.add(
+                        new User(
+                                resultSet.getInt("id"),
+                                resultSet.getString("first_name"),
+                                resultSet.getString("last_name"),
+                                resultSet.getInt("age"),
+                                resultSet.getString("email"),
+                                resultSet.getString("phone_number")
+                        )
+                );
+            }
+
+            return users;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -71,8 +94,15 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> deleteUserById(int id) {
-        return Optional.empty();
+    public boolean deleteUserById(int id) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_STATEMENT)) {
+            preparedStatement.setInt(1, id);
+
+            int deleted = preparedStatement.executeUpdate();
+            return deleted != 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

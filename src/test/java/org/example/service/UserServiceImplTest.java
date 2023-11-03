@@ -15,7 +15,6 @@ import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -110,7 +109,7 @@ class UserServiceImplTest {
         try (MockedStatic<EmailValidator> emailValidatorMocked =
                      mockStatic(EmailValidator.class)) {
             emailValidatorMocked.when(() -> EmailValidator
-                    .isValidEmail(anyString()))
+                            .isValidEmail(anyString()))
                     .thenReturn(false);
 
             IllegalArgumentException illegalArgumentException = assertThrows(
@@ -141,7 +140,7 @@ class UserServiceImplTest {
         try (MockedStatic<PhoneNumberValidator> phoneNumberValidatorMocked =
                      mockStatic(PhoneNumberValidator.class)) {
             phoneNumberValidatorMocked.when(() -> PhoneNumberValidator
-                    .isPhoneNumberValid(anyString()))
+                            .isPhoneNumberValid(anyString()))
                     .thenReturn(false);
 
             IllegalArgumentException illegalArgumentException = assertThrows(
@@ -191,7 +190,7 @@ class UserServiceImplTest {
         when(userMapper.userDtoToUser(any(UserDto.class))).
                 thenReturn(JOHN);
         when(userDao.deleteUserById(anyInt()))
-                .thenReturn(Optional.of(JOHN));
+                .thenReturn(true);
 
         assertDoesNotThrow(() -> userService.deleteUser(JOHN_DTO));
         verify(userDao).deleteUserById(anyInt());

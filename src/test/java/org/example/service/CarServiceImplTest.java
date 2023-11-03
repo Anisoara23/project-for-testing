@@ -100,7 +100,7 @@ class CarServiceImplTest {
         try (MockedStatic<RegNumberValidator> regNumberValidatorMocked =
                      mockStatic(RegNumberValidator.class)) {
             regNumberValidatorMocked.when(() -> RegNumberValidator
-                    .isRegNumberValid(anyString()))
+                            .isRegNumberValid(anyString()))
                     .thenReturn(false);
 
             IllegalArgumentException illegalArgumentException = assertThrows(

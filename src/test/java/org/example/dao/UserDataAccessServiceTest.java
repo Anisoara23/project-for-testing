@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -111,24 +110,24 @@ class UserDataAccessServiceTest {
     }
 
     @Test
-    void testDeleteUserById_whenDeleteExistingUser_thenReturnDeletedUser() {
+    void testDeleteUserById_whenDeleteExistingUser_thenReturnTrue() {
         when(userRepository.deleteUserById(anyInt()))
-                .thenReturn(Optional.of(JOHN));
+                .thenReturn(true);
 
-        Optional<User> user = userDao.deleteUserById(JOHN.getId());
+        boolean isUserDeleted = userDao.deleteUserById(JOHN.getId());
 
-        assertEquals(JOHN, user.get());
+        assertTrue(isUserDeleted);
         verify(userRepository).deleteUserById(anyInt());
     }
 
     @Test
-    void testDeleteUserById_whenDeleteNonExistingUser_thenReturnNull() {
+    void testDeleteUserById_whenDeleteNonExistingUser_thenReturnFalse() {
         when(userRepository.deleteUserById(anyInt()))
-                .thenReturn(Optional.empty());
+                .thenReturn(false);
 
-        Optional<User> user = userDao.deleteUserById(JOHN.getId());
+        boolean isUserDeleted = userDao.deleteUserById(JOHN.getId());
 
-        assertTrue(user.isEmpty());
+        assertFalse(isUserDeleted);
         verify(userRepository).deleteUserById(anyInt());
     }
 }

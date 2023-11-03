@@ -4,7 +4,6 @@ import org.example.model.User;
 import org.example.repository.UserRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public class UserDataAccessService implements UserDao {
 
@@ -35,7 +34,7 @@ public class UserDataAccessService implements UserDao {
     }
 
     @Override
-    public Optional<User> deleteUserById(int id) {
+    public boolean deleteUserById(int id) {
         return userRepository.deleteUserById(id);
     }
 }
