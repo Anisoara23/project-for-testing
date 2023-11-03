@@ -22,9 +22,11 @@ public class CsvReader implements Reader {
         List<List<String>> records = new ArrayList<>();
         try (CSVReader csvReader = new CSVReader(new FileReader(csvFile))) {
             String[] values;
+
             while ((values = csvReader.readNext()) != null) {
                 records.add(Arrays.asList(values));
             }
+
             return records;
         } catch (IOException | CsvValidationException e) {
             throw new RuntimeException(e);

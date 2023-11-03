@@ -1,4 +1,4 @@
-package org.example.dataimport;
+package org.example.dataimporter;
 
 import org.example.controller.UserController;
 import org.example.dto.UserDto;
