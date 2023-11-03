@@ -59,7 +59,6 @@ public class BookingServiceImpl implements BookingService {
                 .filter(booking -> booking.getCarDto().equals(carDto))
                 .findAny();
 
-
         if (optionalBooking.isPresent() &&
                 (bookingDto.getBookedAt().isAfter(optionalBooking.get().getBookedAt()) ||
                         bookingDto.getBookedAt().equals(optionalBooking.get().getBookedAt())) &&
