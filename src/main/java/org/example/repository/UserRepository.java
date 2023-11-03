@@ -7,11 +7,11 @@ import java.util.Optional;
 
 public interface UserRepository {
 
-    List<User> getAllUsers();
+    List<User> findAllUsers();
 
     boolean existsUserByEmail(String email);
 
-    User addUser(User user);
+    User saveUser(User user);
 
     Optional<User> deleteUserById(int id);
 

@@ -16,7 +16,7 @@ public class UserDataAccessService implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.getAllUsers();
+        return userRepository.findAllUsers();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class UserDataAccessService implements UserDao {
 
     @Override
     public User addUser(User user) {
-        return userRepository.addUser(user);
+        return userRepository.saveUser(user);
     }
 
     @Override

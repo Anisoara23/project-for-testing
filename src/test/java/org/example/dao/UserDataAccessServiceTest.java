@@ -33,24 +33,24 @@ class UserDataAccessServiceTest {
 
     @Test
     void testGetAllUsers_whenGetAllUsers_thenReturnListOfUsers() {
-        when(userRepository.getAllUsers())
+        when(userRepository.findAllUsers())
                 .thenReturn(List.of(JOHN, MARIA));
 
         List<User> users = userDao.getAllUsers();
 
         assertTrue(users.containsAll(List.of(JOHN, MARIA)));
-        verify(userRepository).getAllUsers();
+        verify(userRepository).findAllUsers();
     }
 
     @Test
     void testGetAllUsers_whenGetAllUsersFromEmptyRepo_thenReturnEmptyList() {
-        when(userRepository.getAllUsers())
+        when(userRepository.findAllUsers())
                 .thenReturn(List.of());
 
         List<User> users = userDao.getAllUsers();
 
         assertTrue(users.isEmpty());
-        verify(userRepository).getAllUsers();
+        verify(userRepository).findAllUsers();
     }
 
     @Test
@@ -101,13 +101,13 @@ class UserDataAccessServiceTest {
 
     @Test
     void testAddUser_whenAddNewUser_thenAddedUserIsReturned() {
-        when(userRepository.addUser(any(User.class)))
+        when(userRepository.saveUser(any(User.class)))
                 .thenReturn(JOHN);
 
         User user = userDao.addUser(JOHN);
 
         assertEquals(JOHN, user);
-        verify(userRepository).addUser(any(User.class));
+        verify(userRepository).saveUser(any(User.class));
     }
 
     @Test
